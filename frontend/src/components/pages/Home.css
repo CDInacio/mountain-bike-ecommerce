@@ -1,0 +1,118 @@
+.components img {
+  object-fit: cover;
+  height: 500px;
+  width: 100%;
+  transition: 300ms ease-in-out;
+}
+
+.components:hover img {
+  filter: brightness(50%);
+}
+
+.components-txt,
+.accessories-txt,
+.casual-txt,
+.equipments-txt,
+.bikes-txt {
+  transition: 300ms ease-in-out;
+  opacity: 0;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  align-items: center;
+}
+
+.components-txt-pos {
+  top: 135%;
+  left: 22%;
+}
+
+.components:hover .components-txt,
+.casual:hover .casual-txt,
+.equipments:hover .equipments-txt,
+.accessories:hover .accessories-txt,
+.bikes:hover .bikes-txt {
+  opacity: 1;
+}
+
+.components-txt span,
+.equipments-txt span,
+.accessories-txt span,
+.bikes-txt span,
+.casual-txt span {
+  font-size: 3rem;
+  font-style: italic;
+}
+
+.components-txt button,
+.accessories button,
+.casual button,
+.bikes button,
+.equipments button {
+    cursor: pointer;
+  margin-top: 30px;
+  width: 50%;
+}
+
+.equipments img {
+  object-fit: cover;
+  height: 500px;
+  width: 100%;
+}
+
+.accessories img,
+.bikes img,
+.casual img {
+  object-fit: cover;
+  height: 600px;
+  width: 100%;
+}
+
+/* equipments hover */
+.equipments-txt-pos {
+  top: 135%;
+  left: 70%;
+}
+
+.equipments img,
+.casual img,
+.components img,
+.bikes img,
+.accessories img {
+  transition: 300ms ease-in-out;
+}
+
+.equipments:hover img,
+.accessories:hover img,
+.components:hover img,
+.bikes:hover img,
+.casual:hover img {
+  filter: brightness(50%);
+}
+
+/* accessories hover */
+.accessories-txt-pos {
+  top: 215%;
+  left: 10%;
+}
+
+.accessories img,
+.bikes img,
+.casual img {
+  transition: 300ms ease-in-out;
+}
+
+.bikes-txt {
+  top: 215%;
+  left: 43%;
+}
+
+.bikes:hover .bikes-txt {
+  opacity: 1;
+}
+
+.casual-txt-pos {
+  top: 215%;
+  left: 72%;
+}

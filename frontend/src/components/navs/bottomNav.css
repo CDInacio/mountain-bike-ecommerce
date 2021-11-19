@@ -1,0 +1,22 @@
+.dropdown-content {
+  display: none;
+  background-color: #fff;
+  position: absolute;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  min-width: 200px;
+  z-index: 9999;
+}
+
+.dropdown-content p {
+    cursor: pointer;
+    padding: 20px 10px;
+}
+
+.dropdown-content p:hover {
+    background-color: #E5E5E5;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
