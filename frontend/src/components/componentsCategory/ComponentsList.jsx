@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, Link } from "react-router-dom";
 
@@ -33,36 +34,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ComponentsList = () => {
-  const [colorFilter, setColorFilter] = useState("");
+  const history = useHistory();
+
   const products = useSelector((state) => state.products.productsByDep);
   const dispatch = useDispatch();
   const location = useLocation();
   const classes = useStyles();
   const pathName = location.pathname.replace("/", "");
-
-  const getColorFilter = (products) => {
-    let colors = [];
-    for(let key in products) {
-      if (!colors.includes(products[key].color)) {
-        colors.push(products[key].color)
-      }
-    }
-    return colors;
-  }
-
-  const colors = getColorFilter(products);
-  
-  const getCategoryFilter = (products) => {
-    let category = [];
-    for(let key in products) {
-      if (!category.includes(products[key].category)) {
-        category.push(products[key].category)
-      }
-    }
-    return category;
-  }
-
-  const categories = getCategoryFilter(products);
 
 
   useEffect(() => {
@@ -81,43 +59,6 @@ const ComponentsList = () => {
         <h2>Componentes</h2>
       </div>
       <Container className={styles.container} maxWidth="xl">
-        <div className={styles.filterWrapper}>
-          <div className={styles.color}>
-            <label className={styles.colorLabel} htmlFor="colors">
-              Cor
-            </label>
-            <select
-              onChange={(e) => setColorFilter(e.target.value)}
-              className={styles.colorSelect}
-              name="colors"
-              id="cars"
-            >
-              {colors.map((color, i) => (
-                <option key={i} value={color}>{color}</option>
-              ))}
-            </select>
-          </div>
-          <div className={styles.size}>
-            <label className={styles.sizeLabel} htmlFor="category">
-              Categoria
-            </label>
-            <select name="category" id="cacategoryrs">
-              {categories.map((category, i) => (
-                <option key={i} value={category}>{category}</option>
-              ))}
-            </select>
-          </div>
-          <div className={styles.brand}>
-            <label className={styles.sizeLabel} htmlFor="brand">
-              Marca
-            </label>
-            <select name="brand" id="cars">
-              {products.map((brand, i) => (
-                <option key={i} value={brand.brand}>{brand.brand}</option>
-              ))}
-            </select>
-          </div>
-        </div>
         <Grid container spacing={{ md: 2 }}>
           {products.map((product, i) => (
             <Grid key={i} className={styles.grid} item md={3}>
@@ -129,7 +70,7 @@ const ComponentsList = () => {
                       {product.productName.replaceAll("-", " ")}
                     </Typography>
                     <Typography className={styles.price}>
-                     {`R$${product.price}`}
+                      {`R$${product.price}`}
                     </Typography>
                   </div>
                 </Link>

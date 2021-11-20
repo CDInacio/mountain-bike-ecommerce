@@ -15,6 +15,9 @@ const uiSlice = createSlice({
         message: action.payload.message,
       };
     },
+    setIsLoading(state, action) {
+      state.isFetching = action.payload
+    }
   },
 });
 

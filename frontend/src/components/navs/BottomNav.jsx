@@ -43,15 +43,22 @@ const BottomNav = () => {
           className="dropdown"
         >
           <Typography
-            sx={{ backgroundColor: selectCompoenentColor ? "#bc6c25" : "" }}
+            sx={{
+              backgroundColor: selectCompoenentColor ? "#bc6c25" : "",
+              color: selectCompoenentColor ? "#fff" : "",
+            }}
             className={classes.item}
           >
             <Link to="/componentes">Componentes</Link>
           </Typography>
           <div className="dropdown-content">
-            <p>Suspensão</p>
+            <Link to="/componente/suspensao">
+              <p>Suspensão</p>
+            </Link>
             <p>Shock</p>
-            <p>Quadro</p>
+            <Link to="/componente/quadro">
+              <p>Quadro</p>
+            </Link>
           </div>
         </div>
         <div

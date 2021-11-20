@@ -2,10 +2,12 @@ import {
   setProducts,
   setSingleProduct,
   setProductsByDep,
-  setSingleProductSpec
+  setSingleProductSpec,
+  setSuspensions,
+  setFrames
 } from "../product-slice";
 
-import {setNotification} from '../ui-slice';
+import {setNotification, setIsLoading} from '../ui-slice';
 
 export const fetchProducts = () => {
   return async (dispatch) => {
@@ -29,6 +31,8 @@ export const fetchProducts = () => {
     }
   };
 };
+
+
 
 export const fetchByDepartment = (department) => {
   return async (dispatch) => {
@@ -58,9 +62,56 @@ export const fetchByDepartment = (department) => {
   };
 };
 
+export const fetchSuspension = () => {
+  return async (dispatch) => {
+    try{
+      dispatch(setIsLoading(true));
+      const response = await fetch(`http://localhost:5000/component/suspension`);
+      const data = await response.json();
+      let loadedData = [];
+      for(let key in data) {
+        loadedData.push({
+          id: key,
+          price: data[key].price,
+          productName: data[key].productName,
+          imageUrl: data[key].imageUrl
+        })
+      }
+      dispatch(setIsLoading(false));
+      dispatch(setSuspensions(loadedData));
+    } catch(error) {
+  
+    }   
+  }
+}
+
+export const fetchFrame = () => {
+  return async (dispatch) => {
+    try{
+      dispatch(setIsLoading(true));
+      const response = await fetch(`http://localhost:5000/component/frame`);
+      const data = await response.json();
+      let loadedData = [];
+      for(let key in data) {
+        loadedData.push({
+          id: key,
+          price: data[key].price,
+          productName: data[key].productName,
+          imageUrl: data[key].imageUrl
+        })
+      }
+      dispatch(setIsLoading(false));
+      dispatch(setFrames(loadedData));
+    } catch(error) {
+  
+    }   
+  }
+}
+
 export const fetchSingleProduct = (param) => {
   return async (dispatch) => {
     try {
+      dispatch(setIsLoading(true));
       const response = await fetch(
         `http://localhost:5000/singleproduct/${param}`
       );
@@ -72,6 +123,7 @@ export const fetchSingleProduct = (param) => {
         }))
         return;
       }
+      dispatch(setIsLoading(false));
       dispatch(setSingleProductSpec((data.specification)))
       let formatedName = data.productName.replaceAll("-", " ");
       dispatch(setSingleProduct({

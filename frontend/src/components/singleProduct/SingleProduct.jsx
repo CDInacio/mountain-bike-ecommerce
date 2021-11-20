@@ -1,14 +1,14 @@
 import { useEffect } from "react";
-import {  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchSingleProduct } from "../../store/actions/productsActions";
-import {  clearSingleProductSpec } from "../../store/product-slice";
+import { clearSingleProductSpec } from "../../store/product-slice";
 
 import styles from "./singleProduct.module.css";
 // import { makeStyles } from "@material-ui/styles";
 
-import { Grid, Typography, Alert, AlertTitle } from "@material-ui/core";
+import { Grid, Typography, CircularProgress } from "@material-ui/core";
 
 import TopNav from "../navs/TopNav";
 import BottomNav from "../navs/BottomNav";
@@ -20,28 +20,28 @@ const SingleProduct = () => {
 
   const dispatch = useDispatch();
   const product = useSelector((state) => state.products.singleProduct);
+  const isLoading = useSelector((state) => state.ui.isFetching);
   const productSpecs = useSelector((state) => state.products.singleProductSpec);
-  const message = useSelector((state) => state.ui.notification);
+  // const message = useSelector((state) => state.ui.notification);
   let { nomeProduto } = useParams();
-    console.log(productSpecs)
-    
+
   useEffect(() => {
     dispatch(fetchSingleProduct(nomeProduto));
-    return(() => {
-        // dispatch(clearSingleProduct());
-        dispatch(clearSingleProductSpec());
-    })
+    return () => {
+      // dispatch(clearSingleProduct());
+      dispatch(clearSingleProductSpec());
+    };
   }, []);
 
   return (
     <>
       <TopNav />
       <BottomNav />
-      {message ? (
-        <Alert severity={message.variant}>
-          <AlertTitle>Error</AlertTitle>
-          {message.message}
-        </Alert>
+      {isLoading ? (
+        <CircularProgress
+          size={150}
+          sx={{ position: "absolute", top: "30%", left: "40%" }}
+        />
       ) : (
         <Grid
           sx={{
@@ -60,7 +60,7 @@ const SingleProduct = () => {
             <img src={product.imageUrl} />
           </Grid>
           <Grid className={styles.cart} item xs={6}>
-            <Typography>{product.productName}</Typography>
+            <Typography variant="h5">{product.productName}</Typography>
           </Grid>
           <Grid className={styles.cart} item xs={6}>
             <Typography sx={{ margin: "50px 0 30px 0" }}>Descrição</Typography>
@@ -69,9 +69,7 @@ const SingleProduct = () => {
               Especificações
             </Typography>
             {productSpecs.map((spec, i) => (
-                <Typography>
-                {spec}
-              </Typography>
+              <Typography key={i}>{spec}</Typography>
             ))}
           </Grid>
         </Grid>

@@ -4,7 +4,9 @@ const initialState = {
   products: [],
   productsByDep: [],
   singleProduct: "",
-  singleProductSpec: []
+  singleProductSpec: [],
+  suspensions: [],
+  frames: [],
 };
 
 const productSlice = createSlice({
@@ -18,13 +20,13 @@ const productSlice = createSlice({
       state.productsByDep = state.productsByDep.concat(action.payload);
     },
     clearProductsByDep(state) {
-      state.productsByDep = []
+      state.productsByDep = [];
     },
     setSingleProduct(state, action) {
       state.singleProduct = action.payload;
     },
     clearSingleProduct(state) {
-      state.singleProductSpec = []
+      state.singleProductSpec = [];
     },
     setSingleProductSpec(state, action) {
       state.singleProductSpec = state.singleProductSpec.concat(action.payload);
@@ -38,6 +40,18 @@ const productSlice = createSlice({
     cleanUpSingleProduct(state) {
       state.singleProduct = [];
     },
+    setSuspensions(state, action) {
+      state.suspensions = state.suspensions.concat(action.payload);
+    },
+    clearSuspensions(state) {
+      state.suspensions = [];
+    },
+    setFrames(state, action) {
+      state.frames = state.frames.concat(action.payload);
+    },
+    clearFrames(state) {
+      state.frames = [];
+    },
   },
 });
 
@@ -50,7 +64,11 @@ export const {
   clearProductsByDep,
   setSingleProductSpec,
   clearSingleProduct,
-  clearSingleProductSpec
+  clearSingleProductSpec,
+  setSuspensions,
+  clearSuspensions,
+  setFrames,
+  clearFrames
 } = productSlice.actions;
 
 export default productSlice.reducer;

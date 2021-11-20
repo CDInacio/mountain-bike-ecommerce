@@ -7,6 +7,8 @@ import Components from './components/pages/Components'
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import SingleProduct from "./components/singleProduct/SingleProduct";
+import Suspension from "./components/componentsCategory/Suspension";
+import Frame from "./components/componentsCategory/Frame";
 
 export default function App() {
   return (
@@ -18,7 +20,7 @@ export default function App() {
         <Route path="/home">
           <Home />
         </Route>
-        <Route path="/componentes">
+        <Route path="/componentes" exact>
           <Components />
         </Route>
         <Route path="/login">
@@ -29,6 +31,12 @@ export default function App() {
         </Route>
         <Route path ="/produto/:nomeProduto">
           <SingleProduct />
+        </Route>
+        <Route path ="/componente/suspensao" exact>
+          <Suspension />
+        </Route>
+        <Route path ="/componente/quadro" exact>
+          <Frame />
         </Route>
       </Switch>
     </React.Fragment>

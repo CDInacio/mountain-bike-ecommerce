@@ -32,3 +32,28 @@ module.exports.fetchByDep = async (req, res) => {
     console.log(error);
   }
 };
+
+module.exports.fetchSuspension = async (req, res) => {
+  try {
+    let suspensions = await Product.find({ category: "Suspensao" });
+    if (suspensions.length === 0) {
+      console.log('err')
+    }
+    return res.json(suspensions);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports.fetchFrame = async (req, res) => {
+  try {
+    let frame = await Product.find({ category: "Quadro" });
+    console.log(frame)
+    if (frame.length === 0) {
+      console.log('err')
+    }
+    return res.json(frame);
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -1,4 +1,4 @@
-import ComponentsList from "../componentsList/ComponentsList";
+import ComponentsList from "../componentsCategory/ComponentsList";
 
 const Components = (props) => {
   return (
