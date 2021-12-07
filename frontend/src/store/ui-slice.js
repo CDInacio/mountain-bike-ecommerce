@@ -16,11 +16,15 @@ const uiSlice = createSlice({
       };
     },
     setIsLoading(state, action) {
-      state.isFetching = action.payload
-    }
+      state.isFetching = action.payload;
+    },
+    resetNotification(state) {
+      state.notification = null;
+    },
   },
 });
 
-export const { setNotification, setIsLoading } = uiSlice.actions;
+export const { setNotification, setIsLoading, resetNotification } =
+  uiSlice.actions;
 
 export default uiSlice.reducer;

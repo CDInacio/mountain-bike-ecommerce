@@ -11,7 +11,7 @@ import BottomNav from "../navs/BottomNav";
 
 import styles from "./components.module.css";
 
-import { Container, Grid, Typography, Card } from "@material-ui/core";
+import { Container, Grid, Typography, Card, CircularProgress } from "@material-ui/core";
 
 import { makeStyles } from "@material-ui/styles";
 
@@ -34,11 +34,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ComponentsList = () => {
-  const history = useHistory();
-
   const products = useSelector((state) => state.products.productsByDep);
   const dispatch = useDispatch();
   const location = useLocation();
+  const isLoading = useSelector((state) => state.ui.isFetching);
   const classes = useStyles();
   const pathName = location.pathname.replace("/", "");
 
@@ -59,7 +58,7 @@ const ComponentsList = () => {
         <h2>Componentes</h2>
       </div>
       <Container className={styles.container} maxWidth="xl">
-        <Grid container spacing={{ md: 2 }}>
+        {isLoading ? <CircularProgress size={150} sx={{position: "absolute", top: "70%", left: "40%"}} /> : <Grid container spacing={{ md: 2 }}>
           {products.map((product, i) => (
             <Grid key={i} className={styles.grid} item md={3}>
               <Card className={classes.card}>
@@ -77,7 +76,8 @@ const ComponentsList = () => {
               </Card>
             </Grid>
           ))}
-        </Grid>
+        </Grid>}
+        
       </Container>
     </>
   );

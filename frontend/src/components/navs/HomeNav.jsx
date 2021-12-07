@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useHistory } from "react-router";
 
 import {
   AppBar,
   Toolbar,
   Typography,
 } from "@material-ui/core";
+
+import { isLoggedIn } from "../../store/actions/authActions";
 
 import { Link } from "react-router-dom";
 
@@ -44,12 +47,16 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     transition: "500ms ease"
+  },
+  icons: {
+    display: "flex"
   }
 }));
 
 const HomeNav = () => {
+  const history = useHistory();
   const [nav, setNav] = useState(true);
-  const isAuth = localStorage.getItem("userToken");
+  const isAuth = isLoggedIn();
 
   const changeAppBarCollorOnScrollHandler = () => {
     console.log(window.pageYOffset)
@@ -61,6 +68,11 @@ const HomeNav = () => {
   };
 
   window.addEventListener("scroll", changeAppBarCollorOnScrollHandler);
+
+  const logout = () => {
+    localStorage.removeItem("userToken");
+    history.push("/login");
+  };
 
   const classes = useStyles();
   return (
@@ -114,8 +126,13 @@ const HomeNav = () => {
           </div>
           <div className={classes.auth}>
             {isAuth ? (
-              <div>
-                <AccountCircle sx={{ marginRight: "30px" }} />
+              <div className={classes.icons}>
+                <Typography
+                onClick={logout}
+                sx={{ marginRight: "30px", cursor: "pointer" }}
+              >
+                Sair
+                </Typography>
                 <ShoppingCart />
               </div>
             ) : (

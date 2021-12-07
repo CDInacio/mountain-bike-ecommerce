@@ -75,7 +75,6 @@ export const login = ({ email, password, history }) => {
 
 export const logout = (history) => {
   return (dispatch) => {
-    dispatch(reset());
     localStorage.removeItem("userToken");
     history.push("/");
   };

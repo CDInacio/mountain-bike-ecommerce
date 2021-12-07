@@ -1,16 +1,28 @@
 import React from "react";
-
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch, Redirect } from "react-router-dom";
 
+import { sendCartData } from "../src/store/actions/cartActions";
+
 import Home from "./components/pages/home";
-import Components from './components/pages/Components'
+import Components from "./components/pages/Components";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import SingleProduct from "./components/singleProduct/SingleProduct";
 import Suspension from "./components/componentsCategory/Suspension";
 import Frame from "./components/componentsCategory/Frame";
+import Brands from "./components/brands/Brands";
+import Cart from "./components/pages/Cart";
 
 export default function App() {
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+
+  useEffect(() => {
+      dispatch(sendCartData(cart));
+  }, [cart])
+
   return (
     <React.Fragment>
       <Switch>
@@ -29,14 +41,20 @@ export default function App() {
         <Route path="/cadastro">
           <Register />
         </Route>
-        <Route path ="/produto/:nomeProduto">
+        <Route path="/produto/:nomeProduto">
           <SingleProduct />
         </Route>
-        <Route path ="/componente/suspensao" exact>
+        <Route path="/componente/suspensao" exact>
           <Suspension />
         </Route>
-        <Route path ="/componente/quadro" exact>
+        <Route path="/componente/quadro" exact>
           <Frame />
+        </Route>
+        <Route path="/marca/:brand" exact>
+          <Brands />
+        </Route>
+        <Route path="/carrinho" exact>
+          <Cart />
         </Route>
       </Switch>
     </React.Fragment>

@@ -154,8 +154,8 @@ const BottomNav = () => {
             Marcas
           </Typography>
           <div className="dropdown-content">
-            <p>Fox</p>
-            <p>Troy Lee Designs</p>
+            <Link to="/marca/fox"><p>Fox</p></Link>
+            <Link to="/marca/troy-lee"><p>Troy Lee Designs</p></Link>
             <p>Rock Shox</p>
             <p>Race Face</p>
             <p>Sram</p>

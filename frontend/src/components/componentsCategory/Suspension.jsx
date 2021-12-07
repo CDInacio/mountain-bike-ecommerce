@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import TopNav from "../navs/TopNav";
 import BottomNav from "../navs/BottomNav";
+import ItemsGrid from "../grid/ItensGrid";
 
 import styles from "./components.module.css";
 
@@ -42,7 +43,6 @@ const Suspension = () => {
   const classes = useStyles();
   const isLoading = useSelector((state) => state.ui.isFetching);
   const suspensions = useSelector((state) => state.products.suspensions);
-  console.log(suspensions);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -69,25 +69,7 @@ const Suspension = () => {
             sx={{ position: "absolute", top: "30%", left: "40%" }}
           />
         ) : (
-          <Grid container spacing={{ md: 2 }}>
-            {suspensions.map((susp, i) => (
-              <Grid key={i} className={styles.grid} item md={3}>
-                <Card className={classes.card}>
-                  <Link to={`/produto/${susp.productName}`}>
-                    <div className={styles.image}>
-                      <img src={susp.imageUrl} />
-                      <Typography className={classes.name}>
-                        {susp.productName.replaceAll("-", " ")}
-                      </Typography>
-                      <Typography className={styles.price}>
-                        {`R$${susp.price}`}
-                      </Typography>
-                    </div>
-                  </Link>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
+        <ItemsGrid items={suspensions} />
         )}
       </Container>
     </>

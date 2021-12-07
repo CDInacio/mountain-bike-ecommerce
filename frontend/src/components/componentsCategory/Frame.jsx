@@ -4,14 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 
 import TopNav from "../navs/TopNav";
 import BottomNav from "../navs/BottomNav";
+import ItemsGrid from "../grid/ItensGrid";
 
 import styles from "./components.module.css";
 
 import {
   Container,
-  Grid,
   Typography,
-  Card,
   CircularProgress,
 } from "@material-ui/core";
 
@@ -39,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Frame = () => {
-  const classes = useStyles();
   const frames = useSelector((state) => state.products.frames);
   const isLoading = useSelector((state) => state.ui.isFetching);
   console.log(frames);
@@ -65,25 +63,7 @@ const Frame = () => {
         {isLoading ? (
           <CircularProgress size={150} sx={{position: "absolute", top: "30%", left: "40%"}} />
         ) : (
-          <Grid container spacing={{ md: 2 }}>
-            {frames.map((susp, i) => (
-              <Grid key={i} className={styles.grid} item md={3}>
-                <Card className={classes.card}>
-                  <Link to={`/produto/${susp.productName}`}>
-                    <div className={styles.image}>
-                      <img src={susp.imageUrl} />
-                      <Typography className={classes.name}>
-                        {susp.productName.replaceAll("-", " ")}
-                      </Typography>
-                      <Typography className={styles.price}>
-                        {`R$${susp.price}`}
-                      </Typography>
-                    </div>
-                  </Link>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
+          <ItemsGrid items={frames} />
         )}
       </Container>
     </>

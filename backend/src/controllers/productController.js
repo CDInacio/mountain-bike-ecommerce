@@ -37,7 +37,7 @@ module.exports.fetchSuspension = async (req, res) => {
   try {
     let suspensions = await Product.find({ category: "Suspensao" });
     if (suspensions.length === 0) {
-      console.log('err')
+      console.log("err");
     }
     return res.json(suspensions);
   } catch (error) {
@@ -48,12 +48,34 @@ module.exports.fetchSuspension = async (req, res) => {
 module.exports.fetchFrame = async (req, res) => {
   try {
     let frame = await Product.find({ category: "Quadro" });
-    console.log(frame)
     if (frame.length === 0) {
-      console.log('err')
+      console.log("err");
     }
     return res.json(frame);
   } catch (error) {
     console.log(error);
   }
+};
+
+module.exports.fetchByBrand = async (req, res) => {
+  let { brand } = req.params;
+  try {
+    const products = await Product.find({ brand: brand });
+    if (products.length === 0) {
+      return res.json({
+        status: 400,
+        message: `Produto foi possível achar produtos da marca ${brand}`,
+      });
+    } else {
+      res.json(products);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports.fetchBikes = async (req, res) => {
+  try {
+    const bikes = await Product.find({ category: bike });
+  } catch (error) {}
 };

@@ -7,6 +7,7 @@ const initialState = {
   singleProductSpec: [],
   suspensions: [],
   frames: [],
+  brandProduct: [],
 };
 
 const productSlice = createSlice({
@@ -52,6 +53,12 @@ const productSlice = createSlice({
     clearFrames(state) {
       state.frames = [];
     },
+    setBrandProduct(state, action) {
+      state.brandProduct = state.brandProduct.concat(action.payload);
+    },
+    clearBrandProduct(state) {
+      state.brandProduct = [];
+    },
   },
 });
 
@@ -68,7 +75,9 @@ export const {
   setSuspensions,
   clearSuspensions,
   setFrames,
-  clearFrames
+  clearFrames,
+  setBrandProduct,
+  clearBrandProduct
 } = productSlice.actions;
 
 export default productSlice.reducer;
