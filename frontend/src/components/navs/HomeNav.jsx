@@ -102,7 +102,7 @@ const HomeNav = () => {
               className={classes.item}
               sx={{ marginRight: "10px", padding: "10px" }}
             >
-              Acessórios
+              <Link to="/acessorios">Acessórios</Link>
             </Typography>
             <Typography
               className={classes.item}

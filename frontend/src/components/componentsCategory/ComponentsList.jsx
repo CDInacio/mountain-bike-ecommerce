@@ -8,6 +8,7 @@ import { clearProductsByDep } from "../../store/product-slice";
 
 import TopNav from "../navs/TopNav";
 import BottomNav from "../navs/BottomNav";
+import Banner from "../Banner";
 
 import styles from "./components.module.css";
 
@@ -53,10 +54,7 @@ const ComponentsList = () => {
     <>
       <TopNav />
       <BottomNav />
-      <div className={styles.bannerImage}>
-        <img src="https://i.imgur.com/9YsXoYd.jpg" />
-        <h2>Componentes</h2>
-      </div>
+      <Banner imageUrl="https://i.imgur.com/9YsXoYd.jpg" department="Componentes" />
       <Container className={styles.container} maxWidth="xl">
         {isLoading ? <CircularProgress size={150} sx={{position: "absolute", top: "70%", left: "40%"}} /> : <Grid container spacing={{ md: 2 }}>
           {products.map((product, i) => (

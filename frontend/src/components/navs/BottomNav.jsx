@@ -73,7 +73,7 @@ const BottomNav = () => {
             }}
             className={classes.item}
           >
-            Equipamentos
+            <Link to="/equipamentos">Equipamentos</Link>
           </Typography>
           <div className="dropdown-content">
             <p>Relação</p>
@@ -94,7 +94,7 @@ const BottomNav = () => {
             }}
             className={classes.item}
           >
-            Acessórios
+            <Link to="/acessorios">Acessórios</Link>
           </Typography>
           <div className="dropdown-content">
             <p>Hello World!</p>
@@ -112,7 +112,7 @@ const BottomNav = () => {
             }}
             className={classes.item}
           >
-            Casual
+            <Link to="/casual">Casual</Link>
           </Typography>
           <div className="dropdown-content">
             <p>Camisa</p>

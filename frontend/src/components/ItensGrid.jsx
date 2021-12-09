@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import styles from "../componentsCategory/components.module.css";
+import styles from "../components/componentsCategory/components.module.css";
 
 import { Typography, Grid, Card } from "@material-ui/core";
 

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import TopNav from "../navs/TopNav";
 import BottomNav from "../navs/BottomNav";
-import ItemsGrid from "../grid/ItensGrid";
+import ItemsGrid from "../ItensGrid";
 
 import styles from "./components.module.css";
 

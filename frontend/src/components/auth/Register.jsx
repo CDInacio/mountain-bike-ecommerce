@@ -114,7 +114,7 @@ const Register = () => {
               Cadastro
             </Typography>
             <TextField
-              value={enteredRegisterEmailChangeHandler}
+              value={enteredRegisterEmail}
               error={enteredRegisterEmailHasError}
               helperText={enteredRegisterEmailHasError ? "Campo obrigatório" : ""}
               onChange={enteredRegisterEmailChangeHandler}

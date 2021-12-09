@@ -50,7 +50,6 @@ const useStyles = makeStyles((theme) => ({
 const TopNav = () => {
   const cart = useSelector((state) => state.cart);
   const cartAmount = useSelector((state) => state.cart.items);
-  console.log(cartAmount)
   const history = useHistory();
   const classes = useStyles();
   let isAuth = isLoggedIn();
