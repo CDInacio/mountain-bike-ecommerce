@@ -56,7 +56,6 @@ export const login = ({ email, password, history }) => {
       console.log(data);
 
       if (data.status === 200) {
-        dispatch(setUser({ fullname: data.fullname, email: data.email }));
         localStorage.setItem("userToken", data.user);
         history.push("/");
       } else {
@@ -94,8 +93,12 @@ export const fetchUser = () => {
         },
       });
 
-      const data = response.json();
-      console.log(data);
+      const data = await response.json();
+      dispatch(setUser({
+        id: data.id,
+        fullname: data.fullname,
+        email: data.email
+      }))
     } catch (error) {}
   };
 };

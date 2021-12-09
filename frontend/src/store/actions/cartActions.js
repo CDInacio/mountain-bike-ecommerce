@@ -1,4 +1,4 @@
-export const sendCartData = (data) => {
+export const sendCartData = (data, id) => {
   return async (dispatch) => {
     try {
       const response = await fetch("http://localhost:5000/addItemToCart", {
@@ -9,6 +9,7 @@ export const sendCartData = (data) => {
         body: JSON.stringify({
           items: data.items,
           totalQuantity: data.totalQuantity,
+          costumerId: id
         }),
       });
     } catch (error) {}

@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch, Redirect } from "react-router-dom";
 
 import { sendCartData } from "../src/store/actions/cartActions";
+import { fetchUser } from "./store/actions/authActions";
+import { isLoggedIn } from "./store/actions/authActions";
 
 import Home from "./components/pages/home";
 import Components from "./components/pages/Components";
@@ -16,12 +18,27 @@ import Brands from "./components/brands/Brands";
 import Cart from "./components/pages/Cart";
 
 export default function App() {
+  const isAuth = isLoggedIn();
+  const user = useSelector((state) => state.user.userInfo);
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
 
   useEffect(() => {
-      dispatch(sendCartData(cart));
-  }, [cart])
+    let isMounted = true;
+    if (isMounted) {
+      dispatch(fetchUser());
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isAuth) {
+      return;
+    }
+    dispatch(sendCartData(cart, user.id));
+  }, [cart]);
 
   return (
     <React.Fragment>

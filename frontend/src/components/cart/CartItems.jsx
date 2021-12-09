@@ -33,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
   },
   continueCart: {
     width: "100%",
-    backgroundColor: "#d3d3d3",
     padding: "10px",
   },
 }));
@@ -45,7 +44,7 @@ const CartItems = () => {
   const location = useLocation();
   const classes = useStyles();
 
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
   
   const getTotal = (cart) => {
     let total = 0;
@@ -59,7 +58,10 @@ const CartItems = () => {
   
 const continueWithPurchaseHandler = () => {
   if (!isAuth) {
-    setError(true);
+    setError('Você precisa estar logado para prosseguir com a compra.');
+    return;
+  } else if (cartItems.length === 0) {
+    setError('Carrinho vazio');
     return;
   }
   // history.push('/');
@@ -110,13 +112,13 @@ const continueWithPurchaseHandler = () => {
             <Paper
               elevation={2}
               className={classes.continueCart}
-              sx={{ display: "flex", justifyContent: "space-between" }}
+              sx={{ display: "flex", justifyContent: "space-between", alignItems: 'center' }}
             >
               <Typography>Total: R$ {cartTotal}</Typography>
               <Button onClick={continueWithPurchaseHandler} variant="outlined">Continuar</Button>
             </Paper>
           </Grid>
-          {error ? <Alert sx={{marginTop: '15px'}} severity="error">Você precisa estar logado para prosseguir com a compra.</Alert> : ''}
+          {error ? <Alert sx={{marginTop: '15px'}} severity="error">{error}.</Alert> : ''}
         </Grid>
       </Container>
     </>

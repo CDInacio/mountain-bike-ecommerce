@@ -55,6 +55,12 @@ module.exports.getCurrentUser = async (req, res) => {
   const token = req.headers["x-access-token"];
   try {
     const verifyToken = jwt.verify(token, "123");
-    console.log(verifyToken);
+    const user = await User.findOne({ email: verifyToken.email });
+    return res.json({
+      id: user._id,
+      fullname: user.fullname,
+      email: user.email
+    })
+  
   } catch (error) {}
 };

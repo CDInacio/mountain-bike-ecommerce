@@ -59,7 +59,6 @@ const HomeNav = () => {
   const isAuth = isLoggedIn();
 
   const changeAppBarCollorOnScrollHandler = () => {
-    console.log(window.pageYOffset)
     if (window.pageYOffset < 300) {
       setNav(true);
     } else {

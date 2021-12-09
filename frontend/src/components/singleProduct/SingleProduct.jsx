@@ -36,13 +36,15 @@ const SingleProduct = () => {
   }, []);
 
   const addItemToCartHandler = () => {
-    dispatch(addItemToCart({
-      id: product.id,
-      productName: product.productName,
-      price: product.price,
-      imageUrl: product.imageUrl
-    }))
-  }
+    dispatch(
+      addItemToCart({
+        id: product.id,
+        productName: product.productName,
+        price: product.price,
+        imageUrl: product.imageUrl,
+      })
+    );
+  };
 
   return (
     <>
@@ -71,10 +73,20 @@ const SingleProduct = () => {
             <img src={product.imageUrl} />
           </Grid>
           <Grid className={styles.cart} item xs={5}>
-            <Typography sx={{marginBottom: "20px"}}  variant="h5">{product.productName}</Typography>
-            <Typography variant="h6">{'R$ ' + product.price}</Typography>
-            <Typography className={styles.color} >{'Cor: ' + product.color}</Typography>
-            <Button onClick={addItemToCartHandler} sx={{width: "100%", marginTop: "50px"}} variant="contained">Comprar</Button>
+            <Typography sx={{ marginBottom: "20px" }} variant="h5">
+              {product.productName}
+            </Typography>
+            <Typography variant="h6">{"R$ " + product.price}</Typography>
+            <Typography className={styles.color}>
+              {"Cor: " + product.color}
+            </Typography>
+            <Button
+              onClick={addItemToCartHandler}
+              sx={{ width: "100%", marginTop: "50px" }}
+              variant="contained"
+            >
+              Comprar
+            </Button>
           </Grid>
           <Grid item xs={12}>
             <Typography sx={{ margin: "50px 0 30px 0" }}>Descrição</Typography>
