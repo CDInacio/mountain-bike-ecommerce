@@ -16,6 +16,11 @@ import Suspension from "./components/componentsCategory/Suspension";
 import Frame from "./components/componentsCategory/Frame";
 import Brands from "./components/brands/Brands";
 import Cart from "./components/pages/Cart";
+import Equipments from "./components/equipments/Equipments";
+import Accessories from "./components/accessories/Accessories";
+import Casual from "./components/casual/Casual";
+
+let isInitial = true;
 
 export default function App() {
   const isAuth = isLoggedIn();
@@ -35,6 +40,10 @@ export default function App() {
 
   useEffect(() => {
     if (!isAuth) {
+      return;
+    }
+    if (isInitial) {
+      isInitial = false;
       return;
     }
     dispatch(sendCartData(cart, user.id));
@@ -72,6 +81,15 @@ export default function App() {
         </Route>
         <Route path="/carrinho" exact>
           <Cart />
+        </Route>
+        <Route path="/equipamentos" exact>
+          <Equipments />
+        </Route>
+        <Route path="/acessorios" exact>
+          <Accessories />
+        </Route>
+        <Route path="/casual" exact>
+          <Casual />
         </Route>
       </Switch>
     </React.Fragment>
