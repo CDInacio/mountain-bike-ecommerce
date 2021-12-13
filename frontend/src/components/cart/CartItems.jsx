@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useHistory } from "react-router-dom";
+// import { useLocation, useHistory } from "react-router-dom";
 
 import CartItemsList from "./CartItemsList";
 
@@ -38,10 +38,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CartItems = () => {
-  const history = useHistory();
   const isAuth = isLoggedIn();
   const cartItems = useSelector((state) => state.cart.items);
-  const location = useLocation();
   const classes = useStyles();
 
   const [error, setError] = useState('');
@@ -64,7 +62,7 @@ const continueWithPurchaseHandler = () => {
     setError('Carrinho vazio');
     return;
   }
-  // history.push('/');
+
 }
   return (
     <>

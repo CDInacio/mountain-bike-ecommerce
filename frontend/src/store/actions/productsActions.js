@@ -177,7 +177,7 @@ export const fetchBikes = () => {
   return async (dispatch) => {
     try {
       const response = await fetch("http://localhost:5000/bikes");
-      const data = await response.json();
+      await response.json();
     } catch (error) {}
   };
 };

@@ -9,6 +9,9 @@ const CartSchema = new Schema({
   },
   totalQuantity: {
     type: Number
+  },
+  costumerEmail: {
+    type: String
   }
 });
 

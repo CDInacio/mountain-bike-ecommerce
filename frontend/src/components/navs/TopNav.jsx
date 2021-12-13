@@ -2,11 +2,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 
-import { logout, isLoggedIn } from "../../store/actions/authActions";
-
+import { isLoggedIn } from "../../store/actions/authActions";
+import { cleanCart } from "../../store/cart-slice";
+import { setIsLogged, resetUserInfo } from "../../store/user-slice";
+// import { logout } from "../../store/actions/authActions";
 import { AppBar, Toolbar, Typography, TextField } from "@material-ui/core";
 
-import { ShoppingCart, ExitToApp } from "@material-ui/icons";
+import { ShoppingCart } from "@material-ui/icons";
 
 import { makeStyles } from "@material-ui/styles";
 
@@ -48,17 +50,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TopNav = () => {
-  const cart = useSelector((state) => state.cart);
-  const cartAmount = useSelector((state) => state.cart.items);
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart.items);
   const history = useHistory();
   const classes = useStyles();
   let isAuth = isLoggedIn();
-
   const logout = () => {
     localStorage.removeItem("userToken");
-    history.push("/login");
+    dispatch(setIsLogged());
+    dispatch(resetUserInfo());
+    dispatch(cleanCart());
+    history.push("/");
   };
-  
 
   return (
     <AppBar className={classes.appBar} elevation={0} position="static">
@@ -78,9 +81,10 @@ const TopNav = () => {
                 sx={{ marginRight: "30px", cursor: "pointer" }}
               >
                 Sair
-                </Typography>
-                <Link to="/carrinho"><ShoppingCart /></Link>
-                <div className={classes.amount}>{cartAmount.length}</div>
+              </Typography>
+              <Link to="/carrinho">
+                <ShoppingCart />
+              </Link>
             </>
           ) : (
             <div className={classes.auth}>
@@ -90,8 +94,9 @@ const TopNav = () => {
               <Typography sx={{ marginRight: "30px" }}>
                 <Link to="/login">Entrar</Link>
               </Typography>
-              <Link to="/carrinho"><ShoppingCart /></Link>
-              <div className={classes.amount}>{cartAmount.length}</div>
+              <Link to="/carrinho">
+                <ShoppingCart />
+              </Link>
             </div>
           )}
         </div>

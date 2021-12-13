@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, Link } from "react-router-dom";
 
@@ -44,8 +43,12 @@ const ComponentsList = () => {
 
 
   useEffect(() => {
-    dispatch(fetchByDepartment(pathName));
+    let isMounted = true;
+    if (isMounted) {
+      dispatch(fetchByDepartment(pathName));
+    }
     return () => {
+      isMounted = false;
       dispatch(clearProductsByDep());
     };
   }, []);

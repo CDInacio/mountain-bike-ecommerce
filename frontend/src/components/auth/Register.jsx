@@ -1,10 +1,11 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 
 import useInput from "../../hooks/use-input";
 
 import { register } from "../../store/actions/authActions";
+import { resetNotification } from "../../store/ui-slice";
 
 import TopNav from "../navs/TopNav";
 import BottomNav from "../navs/BottomNav";
@@ -30,17 +31,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Register = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
 
   const history = useHistory();
   const [open, setOpen] = useState(false);
-  const dispatch = useDispatch();
   const [error, setError] = useState(false);
   const message = useSelector((state) => state.ui.notification);
 
   const {
     value: enteredName,
-    isValid: enteredNameIsValid,
     hasError: enteredNameHasError,
     reset: resetName,
     valueChangeHandler: nameChangeHandler,
@@ -49,7 +49,6 @@ const Register = () => {
 
   const {
     value: enteredRegisterEmail,
-    isValid: enteredRegisterEmailIsValid,
     hasError: enteredRegisterEmailHasError,
     reset: resetenteredRegisterEmail,
     valueChangeHandler: enteredRegisterEmailChangeHandler,
@@ -58,7 +57,6 @@ const Register = () => {
 
   const {
     value: enteredPassword,
-    isValid: enteredPasswordIsValid,
     hasError: enteredPasswordHasError,
     reset: resetPassword,
     valueChangeHandler: passwordChangeHandler,
@@ -67,7 +65,6 @@ const Register = () => {
 
   const {
     value: enteredConfirmPassword,
-    isValid: enteredConfirmPasswordIsValid,
     hasError: enteredConfirmPasswordHasError,
     reset: resetConfirmPassword,
     valueChangeHandler: confirmPasswordChangeHandler,
@@ -89,7 +86,13 @@ const Register = () => {
       !enteredRegisterEmail ||
       !enteredConfirmPassword
     ) {
-      setError(true);
+      setError('Informe todos os campos');
+      setOpen(true);
+      return;
+    }
+
+    if (enteredPassword !== enteredConfirmPassword) {
+      setError('Senhas diferentes');
       setOpen(true);
       return;
     }
@@ -103,6 +106,10 @@ const Register = () => {
     dispatch(register(values));
     resetFields();
   };
+
+  useEffect(() => {
+    dispatch(resetNotification());
+  }, [])
   return (
     <>
       <TopNav />
@@ -182,7 +189,7 @@ const Register = () => {
                 severity="error"
               >
                 <AlertTitle>Error</AlertTitle>
-                Por favor, preencha todos os campos!
+                {error}
               </Alert>
             )}
             {message && (

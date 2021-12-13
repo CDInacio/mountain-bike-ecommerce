@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -14,29 +14,28 @@ import styles from "../componentsCategory/components.module.css";
 
 import { Container, Typography, CircularProgress, Alert, AlertTitle } from "@material-ui/core";
 
-import { makeStyles } from "@material-ui/styles";
+// import { makeStyles } from "@material-ui/styles";
 
-const useStyles = makeStyles((theme) => ({
-  card: {
-    "&:hover": {
-      boxShadow:
-        "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;",
-    },
-  },
-  grid: {
-    marginTop: "10%",
-  },
-  name: {
-    opacity: "0.8",
-  },
-  price: {
-    fontWeight: "bold",
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   card: {
+//     "&:hover": {
+//       boxShadow:
+//         "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;",
+//     },
+//   },
+//   grid: {
+//     marginTop: "10%",
+//   },
+//   name: {
+//     opacity: "0.8",
+//   },
+//   price: {
+//     fontWeight: "bold",
+//   },
+// }));
 
 const Brands = () => {
   let { brand } = useParams();
-  console.log(brand)
   const brandProduct = useSelector((state) => state.products.brandProduct);
   const isLoading = useSelector((state) => state.ui.isFetching);
   const notification = useSelector((state) => state.ui.notification);
@@ -55,9 +54,9 @@ const Brands = () => {
   if(notification != null) {
     setFalse()
   }
-  const resetNum = () =>{
-      error = false
-  }
+  // const resetNum = () =>{
+  //     error = false
+  // }
   return (
     <>
       <TopNav />

@@ -1,5 +1,5 @@
 import { setNotification } from "../ui-slice";
-import { setUser, reset } from "../user-slice";
+import { setUser, resetUserInfo, setIsLogged } from "../user-slice";
 
 export const register = ({ fullname, email, password, history }) => {
   return async (dispatch) => {
@@ -23,7 +23,6 @@ export const register = ({ fullname, email, password, history }) => {
             message: "Você foi cadastrado com sucesso!",
           })
         );
-        history.push("/");
       } else {
         dispatch(
           setNotification({
@@ -53,9 +52,12 @@ export const login = ({ email, password, history }) => {
       });
 
       const data = await response.json();
-      console.log(data);
 
       if (data.status === 200) {
+        dispatch(setUser({
+          fullname: data.fullname,
+          email: data.email
+        }));
         localStorage.setItem("userToken", data.user);
         history.push("/");
       } else {
@@ -75,6 +77,8 @@ export const login = ({ email, password, history }) => {
 export const logout = (history) => {
   return (dispatch) => {
     localStorage.removeItem("userToken");
+    dispatch(setIsLogged(false));
+    dispatch(resetUserInfo());
     history.push("/");
   };
 };
@@ -89,16 +93,20 @@ export const fetchUser = () => {
     try {
       const response = await fetch("http://localhost:5000/userInfo", {
         headers: {
-          "x-access-token": localStorage.getItem("userToken"),
+          Authorization: `Bearer ${localStorage.getItem('userToken')}`,
         },
       });
 
       const data = await response.json();
-      dispatch(setUser({
-        id: data.id,
-        fullname: data.fullname,
-        email: data.email
-      }))
-    } catch (error) {}
+      dispatch(
+        setUser({
+          id: data.id,
+          fullname: data.fullname,
+          email: data.email,
+        })
+      );
+    } catch (error) {
+      console.log(error)
+    }
   };
 };

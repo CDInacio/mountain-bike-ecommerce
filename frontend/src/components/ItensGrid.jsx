@@ -34,7 +34,7 @@ const ItemsGrid = (props) => {
           <Card className={classes.card}>
             <Link to={`/produto/${item.productName}`}>
               <div className={styles.image}>
-                <img src={item.imageUrl} />
+                <img src={item.imageUrl} alt="Product" />
                 <Typography className={classes.name}>
                   {item.productName.replaceAll("-", " ")}
                 </Typography>

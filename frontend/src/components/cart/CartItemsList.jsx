@@ -7,6 +7,8 @@ import styles from "./CartItem.module.css";
 import { removeItemFromCart, addItemToCart } from "../../store/cart-slice";
 
 const CartItemsList = (props) => {
+  const cart = useSelector((state) => state.cart.items);
+  console.log(cart)
   const dispatch = useDispatch();
   const { imageUrl, productName, quantity, price, id, totalPrice } = props;
 
@@ -36,7 +38,7 @@ const CartItemsList = (props) => {
         xs={1}
       >
         <div className={styles.image}>
-          <img src={imageUrl} />
+          <img src={imageUrl} alt="cart item" />
         </div>
       </Grid>
       <Grid item xs={5}>

@@ -20,6 +20,7 @@ router.get("/brand/:brand", productController.fetchByBrand);
 router.get("/bikes", productController.fetchBikes);
 
 //cart routes
-router.put('/addItemToCart', cartController.addToCart);
+router.post('/addItemToCart', cartController.addToCart);
+router.get('/fetchCart', cartController.fetchCartData);
 
 module.exports = router;

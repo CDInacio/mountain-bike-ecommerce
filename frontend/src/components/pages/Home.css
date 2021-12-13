@@ -24,7 +24,7 @@
 }
 
 .components-txt-pos {
-  top: 135%;
+  top: 128%;
   left: 22%;
 }
 
@@ -52,7 +52,7 @@
 .equipments button {
     cursor: pointer;
   margin-top: 30px;
-  width: 50%;
+  width: 100%;
 }
 
 .equipments img {
@@ -71,7 +71,7 @@
 
 /* equipments hover */
 .equipments-txt-pos {
-  top: 135%;
+  top: 128%;
   left: 70%;
 }
 
@@ -93,7 +93,7 @@
 
 /* accessories hover */
 .accessories-txt-pos {
-  top: 215%;
+  top: 200%;
   left: 10%;
 }
 
@@ -104,7 +104,7 @@
 }
 
 .bikes-txt {
-  top: 215%;
+  top: 200%;
   left: 43%;
 }
 
@@ -113,6 +113,6 @@
 }
 
 .casual-txt-pos {
-  top: 215%;
-  left: 72%;
+  top: 200%;
+  left: 78%;
 }

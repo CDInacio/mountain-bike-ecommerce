@@ -13,6 +13,15 @@ module.exports.register = async (req, res) => {
 
     user = await User.create({ fullname, email, password });
 
+    const token = jwt.sign(
+      {
+        fullname: user.fullname,
+        email: user.email,
+      },
+      "123",
+      { expiresIn: "2h" }
+    );
+
     return res.json({ status: 200 });
   } catch (error) {
     return res.json({ message: "Algo deu errado!" });
@@ -24,21 +33,20 @@ module.exports.login = async (req, res) => {
   try {
     const user = await User.findOne({ email: email });
 
-    if (!user)
-      return res.json({ message: "Usuário não cadastrado!" });
+    if (!user) return res.json({ message: "Usuário não cadastrado!" });
 
     const isMatch = await bcrypt.compare(password, user.password);
-    
-    if (!isMatch)
-      return res.json({ message: "Email e/ou senha incorretos." });
+
+    if (!isMatch) return res.json({ message: "Email e/ou senha incorretos." });
 
     const token = jwt.sign(
       {
         fullname: user.fullname,
         email: user.email,
       },
-      "123"
-    ); 
+      "123",
+      { expiresIn: "2h" }
+    );
 
     return res.json({
       status: 200,
@@ -52,15 +60,15 @@ module.exports.login = async (req, res) => {
 };
 
 module.exports.getCurrentUser = async (req, res) => {
-  const token = req.headers["x-access-token"];
   try {
-    const verifyToken = jwt.verify(token, "123");
-    const user = await User.findOne({ email: verifyToken.email });
+    let token = req.headers.authorization.split(' ')[1];
+    let payload = jwt.verify(token, "123")
     return res.json({
-      id: user._id,
-      fullname: user.fullname,
-      email: user.email
+      fullname: payload.fullname,
+      email: payload.email,
     })
   
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 };

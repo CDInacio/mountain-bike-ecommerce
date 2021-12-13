@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 
 import {
@@ -11,7 +11,7 @@ import { isLoggedIn } from "../../store/actions/authActions";
 
 import { Link } from "react-router-dom";
 
-import { ShoppingCart, AccountCircle } from "@material-ui/icons";
+import { ShoppingCart  } from "@material-ui/icons";
 
 import { makeStyles } from "@material-ui/styles";
 
@@ -66,7 +66,10 @@ const HomeNav = () => {
     }
   };
 
-  window.addEventListener("scroll", changeAppBarCollorOnScrollHandler);
+  useEffect(() => {
+    window.addEventListener("scroll", changeAppBarCollorOnScrollHandler);
+    return () => window.removeEventListener("scrool", changeAppBarCollorOnScrollHandler);
+  }, [])
 
   const logout = () => {
     localStorage.removeItem("userToken");

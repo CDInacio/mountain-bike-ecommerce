@@ -1,15 +1,16 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 
 import { sendCartData } from "../src/store/actions/cartActions";
-import { fetchUser } from "./store/actions/authActions";
 import { isLoggedIn } from "./store/actions/authActions";
+import { fetchUser } from "./store/actions/authActions";
+import { fetchCartData } from "../src/store/actions/cartActions";
 
 import Home from "./components/pages/home";
 import Components from "./components/pages/Components";
-import Login from "./components/auth/Login";
+import Login from "./components/auth/LoginForm";
 import Register from "./components/auth/Register";
 import SingleProduct from "./components/singleProduct/SingleProduct";
 import Suspension from "./components/componentsCategory/Suspension";
@@ -23,20 +24,11 @@ import Casual from "./components/casual/Casual";
 let isInitial = true;
 
 export default function App() {
+  const user = useSelector((state) => state.user.userInfo)
+  const location = useLocation();
   const isAuth = isLoggedIn();
-  const user = useSelector((state) => state.user.userInfo);
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-
-  useEffect(() => {
-    let isMounted = true;
-    if (isMounted) {
-      dispatch(fetchUser());
-    }
-    return () => {
-      isMounted = false;
-    };
-  }, []);
 
   useEffect(() => {
     if (!isAuth) {
@@ -46,28 +38,27 @@ export default function App() {
       isInitial = false;
       return;
     }
-    dispatch(sendCartData(cart, user.id));
+      if (cart.changed) {
+        dispatch(sendCartData(cart));
+      }
   }, [cart]);
 
   return (
     <React.Fragment>
       <Switch>
         <Route path="/" exact>
-          <Redirect to="/home" />
-        </Route>
-        <Route path="/home">
           <Home />
         </Route>
         <Route path="/componentes" exact>
           <Components />
         </Route>
-        <Route path="/login">
+        <Route path="/login" exact>
           <Login />
         </Route>
-        <Route path="/cadastro">
+        <Route path="/cadastro" exact>
           <Register />
         </Route>
-        <Route path="/produto/:nomeProduto">
+        <Route path="/produto/:nomeProduto" exact>
           <SingleProduct />
         </Route>
         <Route path="/componente/suspensao" exact>

@@ -10,37 +10,35 @@ import styles from "./components.module.css";
 
 import {
   Container,
-  Grid,
   Typography,
-  Card,
   CircularProgress,
 } from "@material-ui/core";
 
-import { makeStyles } from "@material-ui/styles";
+// import { makeStyles } from "@material-ui/styles";
 
 import { fetchSuspension } from "../../store/actions/productsActions";
 import { clearSuspensions } from "../../store/product-slice";
 
-const useStyles = makeStyles((theme) => ({
-  card: {
-    "&:hover": {
-      boxShadow:
-        "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;",
-    },
-  },
-  grid: {
-    marginTop: "10%",
-  },
-  name: {
-    opacity: "0.8",
-  },
-  price: {
-    fontWeight: "bold",
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   card: {
+//     "&:hover": {
+//       boxShadow:
+//         "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;",
+//     },
+//   },
+//   grid: {
+//     marginTop: "10%",
+//   },
+//   name: {
+//     opacity: "0.8",
+//   },
+//   price: {
+//     fontWeight: "bold",
+//   },
+// }));
 
 const Suspension = () => {
-  const classes = useStyles();
+  // const classes = useStyles();
   const isLoading = useSelector((state) => state.ui.isFetching);
   const suspensions = useSelector((state) => state.products.suspensions);
   const dispatch = useDispatch();
