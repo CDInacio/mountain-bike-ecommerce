@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@material-ui/core";
 
-import { isLoggedIn } from "../../store/actions/authActions";
+// import { isLoggedIn } from "../../store/actions/authActions";
 
 import { Link } from "react-router-dom";
 
@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
 const HomeNav = () => {
   const history = useHistory();
   const [nav, setNav] = useState(true);
-  const isAuth = isLoggedIn();
+  // const isAuth = isLoggedIn();
 
   const changeAppBarCollorOnScrollHandler = () => {
     if (window.pageYOffset < 300) {
@@ -93,7 +93,7 @@ const HomeNav = () => {
               className={classes.item}
               sx={{ marginRight: "10px", padding: "10px" }}
             >
-              <Link to="/componentes">Componentes</Link>
+              <Link to="/products/department/componentes">Componentes</Link>
             </Typography>
             <Typography
               className={classes.item}
@@ -126,7 +126,7 @@ const HomeNav = () => {
               Marcas
             </Typography>
           </div>
-          <div className={classes.auth}>
+          {/* <div className={classes.auth}>
             {isAuth ? (
               <div className={classes.icons}>
                 <Typography
@@ -161,7 +161,7 @@ const HomeNav = () => {
                 <ShoppingCart />
               </div>
             )}
-          </div>
+          </div> */}
         </Toolbar>
       </AppBar>
     </>

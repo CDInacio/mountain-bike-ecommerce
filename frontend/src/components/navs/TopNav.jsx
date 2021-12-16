@@ -1,11 +1,6 @@
-import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 
-import { isLoggedIn } from "../../store/actions/authActions";
-import { cleanCart } from "../../store/cart-slice";
-import { setIsLogged, resetUserInfo } from "../../store/user-slice";
-// import { logout } from "../../store/actions/authActions";
 import { AppBar, Toolbar, Typography, TextField } from "@material-ui/core";
 
 import { ShoppingCart } from "@material-ui/icons";
@@ -50,18 +45,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TopNav = () => {
-  const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart.items);
   const history = useHistory();
   const classes = useStyles();
-  let isAuth = isLoggedIn();
-  const logout = () => {
-    localStorage.removeItem("userToken");
-    dispatch(setIsLogged());
-    dispatch(resetUserInfo());
-    dispatch(cleanCart());
-    history.push("/");
-  };
 
   return (
     <AppBar className={classes.appBar} elevation={0} position="static">
@@ -73,7 +58,7 @@ const TopNav = () => {
           label="Procurar..."
           variant="standard"
         />
-        <div className={classes.auth}>
+        {/* <div className={classes.auth}>
           {isAuth ? (
             <>
               <Typography
@@ -99,7 +84,7 @@ const TopNav = () => {
               </Link>
             </div>
           )}
-        </div>
+        </div> */}
       </Toolbar>
     </AppBar>
   );

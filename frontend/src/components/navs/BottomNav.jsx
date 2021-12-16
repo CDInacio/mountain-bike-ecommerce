@@ -49,7 +49,7 @@ const BottomNav = () => {
             }}
             className={classes.item}
           >
-            <Link to="/componentes">Componentes</Link>
+            <Link to="/products/department/componentes">Componentes</Link>
           </Typography>
           <div className="dropdown-content">
             <Link to="/componente/suspensao">
@@ -73,7 +73,7 @@ const BottomNav = () => {
             }}
             className={classes.item}
           >
-            <Link to="/equipamentos">Equipamentos</Link>
+            <Link to="/products/department/equipamentos">Equipamentos</Link>
           </Typography>
           <div className="dropdown-content">
             <p>Relação</p>

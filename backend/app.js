@@ -3,7 +3,9 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const routes = require('../backend/src/routes/routes');
+const productRoutes = require("./src/routes/productRoutes");
+const userRoutes = require("./src/routes/userRoutes");
+const cartRoutes = require("./src/routes/cartRoutes");
 const databaseConnection = require("../backend/src/config/databaseConnection");
 
 databaseConnection();
@@ -13,7 +15,10 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(routes);
+// routes
+app.use("/api/products", productRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/cart", cartRoutes);
 
 const PORT = process.env.PORT;
 

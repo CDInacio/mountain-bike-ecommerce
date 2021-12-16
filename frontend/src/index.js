@@ -1,15 +1,13 @@
-import React from "react";
+import { React } from "react";
+import {Provider} from 'react-redux'
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 
 import { createTheme, ThemeProvider } from "@material-ui/core";
 
-import { Provider } from "react-redux";
-
 import { BrowserRouter } from "react-router-dom";
-
-import store from "./store/index";
+import store from "./store";
 
 const theme = createTheme({
   palette: {
@@ -21,11 +19,11 @@ const theme = createTheme({
 
 ReactDOM.render(
   <BrowserRouter>
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+      {/* <Provider> */}
         <App />
-      </ThemeProvider>
-    </Provider>
+      {/* </Provider> */}
+    </ThemeProvider>
   </BrowserRouter>,
   document.getElementById("root")
 );
