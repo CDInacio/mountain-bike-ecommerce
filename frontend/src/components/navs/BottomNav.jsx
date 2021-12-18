@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme) => ({
     padding: "10px 50px",
     transition: "200ms",
     "&:hover": {
-      backgroundColor: "#bc6c25",
+      backgroundColor: "#24292F",
+      borderRadius: "3px",
       color: "#fff",
     },
   },
@@ -44,7 +45,7 @@ const BottomNav = () => {
         >
           <Typography
             sx={{
-              backgroundColor: selectCompoenentColor ? "#bc6c25" : "",
+              backgroundColor: selectCompoenentColor ? "#24292F" : "",
               color: selectCompoenentColor ? "#fff" : "",
             }}
             className={classes.item}
@@ -52,11 +53,11 @@ const BottomNav = () => {
             <Link to="/products/department/componentes">Componentes</Link>
           </Typography>
           <div className="dropdown-content">
-            <Link to="/componente/suspensao">
+            <Link to="/products/category/Suspensao">
               <p>Suspensão</p>
             </Link>
             <p>Shock</p>
-            <Link to="/componente/quadro">
+            <Link to="/products/category/Quadro">
               <p>Quadro</p>
             </Link>
           </div>
@@ -68,7 +69,7 @@ const BottomNav = () => {
         >
           <Typography
             sx={{
-              backgroundColor: selectEquipmentColor ? "#bc6c25" : "",
+              backgroundColor: selectEquipmentColor ? "#24292F" : "",
               color: selectEquipmentColor ? "#fff" : "",
             }}
             className={classes.item}
@@ -89,12 +90,12 @@ const BottomNav = () => {
         >
           <Typography
             sx={{
-              backgroundColor: selectAccessoriesColor ? "#bc6c25" : "",
+              backgroundColor: selectAccessoriesColor ? "#24292F" : "",
               color: selectAccessoriesColor ? "#fff" : "",
             }}
             className={classes.item}
           >
-            <Link to="/acessorios">Acessórios</Link>
+            <Link to="/products/department/acessorios">Acessórios</Link>
           </Typography>
           <div className="dropdown-content">
             <p>Hello World!</p>
@@ -107,12 +108,12 @@ const BottomNav = () => {
         >
           <Typography
             sx={{
-              backgroundColor: selectCasualColor ? "#bc6c25" : "",
+              backgroundColor: selectCasualColor ? "#24292F" : "",
               color: selectCasualColor ? "#fff" : "",
             }}
             className={classes.item}
           >
-            <Link to="/casual">Casual</Link>
+            <Link to="/products/department/casual">Casual</Link>
           </Typography>
           <div className="dropdown-content">
             <p>Camisa</p>
@@ -126,7 +127,7 @@ const BottomNav = () => {
         >
           <Typography
             sx={{
-              backgroundColor: selectBikesColor ? "#bc6c25" : "",
+              backgroundColor: selectBikesColor ? "#24292F" : "",
               color: selectBikesColor ? "#fff" : "",
             }}
             className={classes.item}
@@ -146,7 +147,7 @@ const BottomNav = () => {
         >
           <Typography
             sx={{
-              backgroundColor: selectBrandColor ? "#bc6c25" : "",
+              backgroundColor: selectBrandColor ? "#24292F" : "",
               color: selectBrandColor ? "#fff" : "",
             }}
             className={classes.item}

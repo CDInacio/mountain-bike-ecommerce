@@ -19,7 +19,7 @@ const HomeScreen = () => {
               <span>Componentes</span>
               <Button
                 style={{
-                  backgroundColor: "#bc6c25",
+                  backgroundColor: "#24292F",
                 }}
                 variant="contained"
               >
@@ -32,7 +32,7 @@ const HomeScreen = () => {
             <div className="equipments-txt equipments-txt-pos">
               <span>Equipamentos</span>
               <Button style={{
-                  backgroundColor: "#bc6c25",
+                  backgroundColor: "#24292F",
                 }} variant="contained"><Link to="/equipamentos">Ver mais</Link></Button>
             </div>
           </Grid>
@@ -41,7 +41,7 @@ const HomeScreen = () => {
             <div className="accessories-txt accessories-txt-pos">
               <span>Acessórios</span>
               <Button style={{
-                  backgroundColor: "#bc6c25",
+                  backgroundColor: "#24292F",
                 }} variant="contained"><Link to="/equipamentos">Ver mais</Link></Button>
             </div>
           </Grid>
@@ -50,7 +50,7 @@ const HomeScreen = () => {
             <div className="bikes-txt bikes-txt-pos">
               <span>Bicicletas</span>
               <Button style={{
-                  backgroundColor: "#bc6c25",
+                  backgroundColor: "#24292F",
                 }} variant="contained"><Link to="#">Ver mais</Link></Button>
             </div>
           </Grid>
@@ -59,7 +59,7 @@ const HomeScreen = () => {
             <div className="casual-txt casual-txt-pos">
               <span>Casual</span>
               <Button style={{
-                  backgroundColor: "#bc6c25",
+                  backgroundColor: "#24292F",
                 }} variant="contained"><Link to="/casual">Ver mais</Link></Button>
             </div>
           </Grid>

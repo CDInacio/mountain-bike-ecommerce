@@ -1,27 +1,40 @@
-// import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-// import {
-//   productReducer,
-//   singleProductReducer,
-// } from "./reducers/productReducers";
-// import { CartReducer } from "./reducers/cartReducer";
-// import { loginReducer } from "./reducers/userReducers";
-// import thunk from "redux-thunk";
+import { configureStore } from "@reduxjs/toolkit";
+import cartSlice from "./state/cartSlice";
+import userSlice from "./state/userSlice";
 
-// const initialState = {};
+import storage from 'redux-persist/lib/storage'
 
-// const reducer = combineReducers({
-//   products: productReducer,
-//   singleProduct: singleProductReducer,
-//   cart: CartReducer,
-//   userLogin: loginReducer,
-// });
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
 
-// const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const persistConfig = {
+  key: "root",
+  version: 1,
+  storage,
+};
 
-// // the thunk is goona allow me to run async code inside actions
-// const store = createStore(
-//   reducer,
-//   initialState,
-//   composeEnhancer(applyMiddleware(thunk))
-// );
-// export default store;
+const persistedReducer = persistReducer(persistConfig, userSlice);
+
+export const store = configureStore({
+  reducer: {
+    cart: cartSlice,
+    user: persistedReducer,
+    
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+});
+
+export let persistor = persistStore(store)

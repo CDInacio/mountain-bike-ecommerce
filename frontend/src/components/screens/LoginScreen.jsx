@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 
-import { useHistory } from "react-router";
+import { clearMessage, loginRequestError } from "../../state/userSlice";
 
-import { login } from "../../actions/userActions";
+import { login } from "../../state/actions/authActions";
 
 import { makeStyles } from "@material-ui/styles";
 
@@ -16,8 +16,7 @@ import {
   Typography,
   TextField,
   Button,
-  //   AlertTitle,
-  //   Alert,
+  Alert,
   CircularProgress,
 } from "@material-ui/core";
 
@@ -38,26 +37,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LoginScreen = () => {
+  const { isLoading, message } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const history = useHistory();
-  const classes = useStyles();
-  const userLoginData = useSelector((state) => state.userLogin);
-  const { isLoading, userData, message } = userLoginData;
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const classes = useStyles();
 
-  const submitLoginFormHandler = (event) => {
-    event.preventDefault();
-    dispatch(login(email, password));
+  const submitFormHandler = (e) => {
+    e.preventDefault();
+    if (!email || !password) {
+      dispatch(loginRequestError("Informe todos os campos!"));
+      return;
+    }
+    login(dispatch, { email, password });
   };
 
-  console.log(userData);
   useEffect(() => {
-    if (userData) {
-      <Redirect to="/" />;
-    }
-  }, [userData]);
+    dispatch(clearMessage());
+  }, []);
 
   return (
     <>
@@ -65,7 +62,7 @@ const LoginScreen = () => {
       <BottomNav />
       <section className="auth">
         <Card className={classes.card}>
-          <form onSubmit={submitLoginFormHandler}>
+          <form onSubmit={submitFormHandler}>
             <Typography variant="h5" sx={{ textAlign: "center" }}>
               Entrar
             </Typography>
@@ -88,6 +85,7 @@ const LoginScreen = () => {
               variant="standard"
             />
             <Button
+              disabled={isLoading ? true : false}
               type="submit"
               color="primary"
               className={classes.authButton}
@@ -99,27 +97,17 @@ const LoginScreen = () => {
             >
               Entrar
             </Button>
-            {/* {error && open && (
+            {message && (
               <Alert
-                onClose={() => setOpen(false)}
-                sx={{ marginTop: "30px" }}
+                sx={{ marginTop: "20px" }}
+                variant="filled"
                 severity="error"
               >
-                <AlertTitle>Error</AlertTitle>
-                Por favor, preencha todos os campos!
+                {message}
               </Alert>
             )}
-            {message && (
-              <Alert sx={{ marginTop: "30px" }} severity={message.variant}>
-                {message.message}
-              </Alert>
-            )} */}
           </form>
         </Card>
-        {isLoading ? <CircularProgress
-            size={50}
-            sx={{ position: "absolute", top: "85%", left: "47%" }}
-          />: ""}
       </section>
     </>
   );

@@ -1,8 +1,18 @@
-import { useHistory } from "react-router";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import { AppBar, Toolbar, Typography, TextField } from "@material-ui/core";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  TextField,
+  Badge,
+} from "@material-ui/core";
 
+import { logoutRequest, logoutRequestSuccess } from "../../state/userSlice";
+import { logout } from "../../state/actions/authActions";
 import { ShoppingCart } from "@material-ui/icons";
 
 import { makeStyles } from "@material-ui/styles";
@@ -45,8 +55,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TopNav = () => {
-  const history = useHistory();
+  const dispatch = useDispatch();
+  const isLogged = useSelector((state) => state.user.isLoggedIn);
   const classes = useStyles();
+  const qty = useSelector((state) => state.cart.totalQuantity);
+
+  const logout = () => {
+    dispatch(logoutRequest());
+    localStorage.removeItem("persist:root");
+    dispatch(logoutRequestSuccess());
+  };
 
   return (
     <AppBar className={classes.appBar} elevation={0} position="static">
@@ -58,33 +76,34 @@ const TopNav = () => {
           label="Procurar..."
           variant="standard"
         />
-        {/* <div className={classes.auth}>
-          {isAuth ? (
+        <div className={classes.auth}>
+          {isLogged ? (
             <>
-              <Typography
-                onClick={logout}
-                sx={{ marginRight: "30px", cursor: "pointer" }}
-              >
-                Sair
+              <Typography sx={{ marginRight: "30px", cursor: "pointer" }}>
+                <span onClick={logout}>Sair</span>
               </Typography>
-              <Link to="/carrinho">
-                <ShoppingCart />
+              <Link to="/cart">
+                <Badge badgeContent={qty} color="primary">
+                  <ShoppingCart />
+                </Badge>
               </Link>
             </>
           ) : (
             <div className={classes.auth}>
               <Typography sx={{ marginRight: "30px" }}>
-                <Link to="/cadastro">Cadastrar</Link>
+                <Link to="/signup">Cadastrar</Link>
               </Typography>
               <Typography sx={{ marginRight: "30px" }}>
                 <Link to="/login">Entrar</Link>
               </Typography>
-              <Link to="/carrinho">
-                <ShoppingCart />
+              <Link to="/cart">
+                <Badge badgeContent={qty} color="primary">
+                  <ShoppingCart />
+                </Badge>
               </Link>
             </div>
           )}
-        </div> */}
+        </div>
       </Toolbar>
     </AppBar>
   );

@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import "../../assets/css/singleProduct.css";
 
 import { publicRequest } from "../../services/api";
+
+import { addToCart } from "../../state/cartSlice";
 
 import {
   Grid,
@@ -19,11 +22,12 @@ import TopNav from "../navs/TopNav";
 import BottomNav from "../navs/BottomNav";
 
 const ProductSreen = () => {
+  const dispatch = useDispatch();
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [product, setProduct] = useState([]);
-  const [qty, setQty] = useState(1);
-
+  const [quantity, setQuantity] = useState(1);
+  console.log(product)
   useEffect(() => {
     const fetchProduct = async () => {
       setIsLoading(true);
@@ -37,7 +41,13 @@ const ProductSreen = () => {
     };
     fetchProduct();
   }, [id]);
-  console.log(product.specification);
+
+  const addToCartHandler = () => {
+    dispatch(
+      addToCart(product)
+    );
+  };
+
   return (
     <>
       <TopNav />
@@ -77,15 +87,15 @@ const ProductSreen = () => {
               <Typography className="color">
                 {"Cor: " + product.color}
               </Typography>
-              <FormControl sx={{ m: 1, minWidth: 80 }}>
+              <FormControl sx={{ minWidth: 80, marginTop: "20px" }}>
                 <InputLabel id="demo-simple-select-autowidth-label">
-                  {/* Age */}
+                  Qtd
                 </InputLabel>
                 <Select
                   labelId="demo-simple-select-autowidth-label"
                   id="demo-simple-select-autowidth"
-                  value={qty}
-                  onChange={(e) => setQty(e.target.value)}
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value)}
                   autoWidth
                   label="Age"
                 >
@@ -98,7 +108,7 @@ const ProductSreen = () => {
               </FormControl>
               {product.quantity > 0 ? (
                 <Button
-                  // onClick={addItemToCartHandler}
+                  onClick={addToCartHandler}
                   sx={{ width: "100%", marginTop: "50px" }}
                   variant="contained"
                 >

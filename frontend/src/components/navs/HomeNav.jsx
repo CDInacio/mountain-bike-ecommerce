@@ -35,13 +35,14 @@ const useStyles = makeStyles((theme) => ({
   item: {
     "&:hover": {
       cursor: "pointer",
-      backgroundColor: "#bc6c25",
+      backgroundColor: "#24292F",
+      borderRadius: "3px",
       color: "#fff",
     },
   },
   enter: {
     "&hover": {
-      backgroundColor: "#bc6c25",
+      backgroundColor: "#24292F",
       color: "#fff",
     },
   },
@@ -70,11 +71,6 @@ const HomeNav = () => {
     window.addEventListener("scroll", changeAppBarCollorOnScrollHandler);
     return () => window.removeEventListener("scrool", changeAppBarCollorOnScrollHandler);
   }, [])
-
-  const logout = () => {
-    localStorage.removeItem("userToken");
-    history.push("/login");
-  };
 
   const classes = useStyles();
   return (

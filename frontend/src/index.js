@@ -1,18 +1,20 @@
 import { React } from "react";
-import {Provider} from 'react-redux'
+import { Provider } from "react-redux";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 
 import { createTheme, ThemeProvider } from "@material-ui/core";
 
+import { PersistGate } from 'redux-persist/integration/react'
+
 import { BrowserRouter } from "react-router-dom";
-import store from "./store";
+import { store, persistor } from "./store";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#bc6c25",
+      main: "#24292F",
     },
   },
 });
@@ -20,9 +22,11 @@ const theme = createTheme({
 ReactDOM.render(
   <BrowserRouter>
     <ThemeProvider theme={theme}>
-      {/* <Provider> */}
-        <App />
-      {/* </Provider> */}
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <App />
+        </PersistGate>
+      </Provider>
     </ThemeProvider>
   </BrowserRouter>,
   document.getElementById("root")

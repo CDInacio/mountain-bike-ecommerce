@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import TopNav from "../navs/TopNav";
 import BottomNav from "../navs/BottomNav";
 import Banner from "../Banner";
 
-import {publicRequest} from "../../services/api";
+import { publicRequest } from "../../services/api";
 
 import "../../assets/css/Components.css";
 
@@ -16,6 +16,8 @@ import {
   Typography,
   Card,
   CircularProgress,
+  Alert,
+  AlertTitle
 } from "@material-ui/core";
 
 import { makeStyles } from "@material-ui/styles";
@@ -45,13 +47,14 @@ const ProductsScreen = () => {
   const type = path.pathname.split("/")[2];
   const name = path.pathname.split("/")[3];
   const classes = useStyles();
+
   useEffect(() => {
     const fetchProductsByDepartment = async () => {
       try {
-        setIsLoading(true)
+        setIsLoading(true);
         const { data } = await publicRequest.get(`products?${type}=${name}`);
         setProducts(data);
-        setIsLoading(false)
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -59,14 +62,40 @@ const ProductsScreen = () => {
     fetchProductsByDepartment();
   }, [name]);
 
+  let bannerImg;
+  let bannerName;
+  if (name === "componentes") {
+    bannerImg = "https://i.imgur.com/9YsXoYd.jpg";
+    bannerName = "Componentes";
+  } else if (name === "equipamentos") {
+    bannerImg = "https://i.imgur.com/BCGRSS9.jpg";
+    bannerName = "Equipamentos";
+  } else if (name === "casual") {
+    bannerImg = "https://i.imgur.com/zEoGFrG.jpg";
+    bannerName = "Casual";
+  } else if (name === "acessorios") {
+    bannerImg = "https://i.imgur.com/sreQWT9.jpg";
+    bannerName = "Acessórios";
+  }
+
+  let showBanner;
+
+  if (type === "category") {
+    showBanner = false;
+  } else {
+    showBanner = true;
+  }
+
   return (
     <>
       <TopNav />
       <BottomNav />
-      <Banner
-        imageUrl="https://i.imgur.com/9YsXoYd.jpg"
-        department="Componentes"
-      />
+      {showBanner && <Banner imageUrl={bannerImg} department={bannerName} />}
+      {!showBanner && (
+        <Typography>
+          {type} &gt; {name}
+        </Typography>
+      )}
       <Container className="container" maxWidth="xl">
         {isLoading ? (
           <CircularProgress
@@ -74,25 +103,34 @@ const ProductsScreen = () => {
             sx={{ position: "absolute", top: "70%", left: "40%" }}
           />
         ) : (
-          <Grid container spacing={{ md: 2 }}>
-            {products.map((product, i) => (
-              <Grid key={i} className="grid" item md={3}>
-                <Card className={classes.card}>
-                  <Link to={`/product/${product._id}`}>
-                    <div className="image">
-                      <img src={product.imageUrl} />
-                      <Typography className={classes.name}>
-                        {product.productName.replaceAll("-", " ")}
-                      </Typography>
-                      <Typography className="price">
-                        {`R$${product.price}`}
-                      </Typography>
-                    </div>
-                  </Link>
-                </Card>
+          <>
+            {products.length > 0 ? (
+              <Grid container spacing={{ md: 2 }}>
+                {products.map((product, i) => (
+                  <Grid key={i} className="grid" item md={3}>
+                    <Card className={classes.card}>
+                      <Link to={`/product/${product._id}`}>
+                        <div className="image">
+                          <img src={product.imageUrl} />
+                          <Typography className={classes.name}>
+                            {product.productName.replaceAll("-", " ")}
+                          </Typography>
+                          <Typography className="price">
+                            {`R$${product.price}`}
+                          </Typography>
+                        </div>
+                      </Link>
+                    </Card>
+                  </Grid>
+                ))}
               </Grid>
-            ))}
-          </Grid>
+            ) : (
+              <Alert severity="error">
+                <AlertTitle>Erro 404</AlertTitle>
+                Nenhum produto encontrado :(
+              </Alert>
+            )}
+          </>
         )}
       </Container>
     </>
