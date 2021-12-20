@@ -16,6 +16,7 @@ import {
   Typography,
   Card,
   CircularProgress,
+  LinearProgress,
   Alert,
   AlertTitle
 } from "@material-ui/core";
@@ -62,7 +63,7 @@ const ProductsScreen = () => {
     fetchProductsByDepartment();
   }, [name]);
 
-  let bannerImg;
+  let bannerImg = null;
   let bannerName;
   if (name === "componentes") {
     bannerImg = "https://i.imgur.com/9YsXoYd.jpg";
@@ -78,7 +79,7 @@ const ProductsScreen = () => {
     bannerName = "Acessórios";
   }
 
-  let showBanner;
+  let showBanner = true;
 
   if (type === "category") {
     showBanner = false;
@@ -90,7 +91,7 @@ const ProductsScreen = () => {
     <>
       <TopNav />
       <BottomNav />
-      {showBanner && <Banner imageUrl={bannerImg} department={bannerName} />}
+      {bannerImg ? <Banner imageUrl={bannerImg} department={bannerName} /> : <LinearProgress />}
       {!showBanner && (
         <Typography>
           {type} &gt; {name}

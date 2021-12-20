@@ -38,8 +38,9 @@ const userSlice = createSlice({
     singupRequest: (state) => {
       state.isLoading = true;
     },
-    singupRequestSuccess: (state) => {
+    singupRequestSuccess: (state, { payload }) => {
       state.isLoading = false;
+      state.message = payload;
     },
     singupRequestError: (state) => {
       state.isLoading = false;
@@ -58,6 +59,9 @@ export const {
   logoutRequestError,
   logoutRequestSuccess,
   logoutRequest,
-  clearMessage
+  clearMessage,
+  singupRequest,
+  singupRequestSuccess,
+  singupRequestError,
 } = userSlice.actions;
 export default userSlice.reducer;

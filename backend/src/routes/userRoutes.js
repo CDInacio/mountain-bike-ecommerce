@@ -26,13 +26,25 @@ router.get("/createAdmin", async (req, res) => {
 router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
   try {
-    let newUser = new User({ name, email, password });
+    if (!name || !email || !password)
+      return res.json({
+        message: "Por favor, informe todos os campos.",
+        severity: "error",
+      });
 
-    // let user = await User.findOne({ email: email });
-    // if (user) res.status(401).json("Usuário ja cadastrado!");
+    let user = await User.findOne({ email: email });
+    if (user)
+      return res.json({ message: "Usuário ja cadastrado!", severity: "error" });
 
-    let savedUser = await newUser.save();
-    res.json(savedUser);
+    await User.create({
+      name,
+      email,
+      password,
+    });
+    return res.json({
+      message: "Usuário cadastrado com sucesso!",
+      severity: "success",
+    });
   } catch (error) {
     res.json(error);
   }
@@ -42,11 +54,25 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
+    if (!email || !password)
+      return res.json({
+        message: "Por favor, informe todos os campos.",
+        severity: "error",
+      });
+
     const user = await User.findOne({ email: email });
-    if (!user) return res.json("Usuário não cadastrado!");
+    if (!user)
+      return res.json({
+        message: "Usuário não cadastrado.",
+        severity: "error",
+      });
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.json("Email ou senha inválido");
+    if (!isMatch)
+      return res.json({
+        message: "Email ou senha inválido.",
+        severity: "error",
+      });
 
     const accessToken = jwt.sign(
       {

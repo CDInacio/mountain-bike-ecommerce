@@ -1,61 +1,36 @@
 const express = require("express");
 const router = express.Router();
-const { isAuthorized, isAuth, isAdmin } = require("../middleware/auth");
+const { isAuth } = require("../middleware/auth");
 
 const Cart = require("../models/Cart");
 
-// create cart
-router.post("/", isAuth, async (req, res) => {
-  const cart = new Cart(req.body);
+router.get("/", isAuth, async (req, res) => {
   try {
-    const newCart = await cart.create();
-    res.json(newCart);
+    const userCart = await Cart.find({ userId: req.user.id });
+    if (userCart) {
+      return res.json(userCart);
+    } else {
+      return res.json("Voçê ainda não tem produtos no carrinho.");
+    }
   } catch (error) {
-    res.json(error);
+    return res.json(error);
   }
 });
 
-// update cart
-router.post("/update/:id", isAuthorized, async (req, res) => {
+router.post("/add", isAuth, async (req, res) => {
+  const userId = req.user.id;
+  let products = req.body;
+  console.log(products)
   try {
-    const updatedCart = await Cart.findByIdAndDelete(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      { new: true }
-    );
-    res.json(updatedCart);
-  } catch (error) {
-    res.json(error);
-  }
-});
-
-// delete cart
-router.delete("/delete/:id", isAuthorized, async (req, res) => {
-  try {
-    await Cart.findByIdAndDelete(req.params.id);
-    res.json("Usuário deletado");
-  } catch (error) {
-    res.json(error);
-  }
-});
-
-// fetch users cart
-router.get("/fetch/:userId", isAuthorized, async (req, res) => {
-  try {
-    const cart = await Cart.findOne({ userId: req.params.userId });
-    res.json(cart);
-  } catch (error) {
-    res.json(error);
-  }
-});
-
-// fetch all cart data
-router.get("/", isAuthorized, async (req, res) => {
-  try {
-    const cart = await Cart.find();
-    res.json(cart);
+    let existingCart = await Cart.findOne({ userId });
+    if (existingCart) {
+      let filter = { userId: userId };
+      let update = { products: products };
+      await Cart.findOneAndUpdate(filter, update);
+    } else {
+      const newCart = await Cart.create({ products, userId });
+      return res.json(newCart);
+    }
   } catch (error) {
     res.json(error);
   }

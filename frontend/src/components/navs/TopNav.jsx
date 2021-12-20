@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -9,11 +9,15 @@ import {
   Typography,
   TextField,
   Badge,
+  IconButton,
+  Menu,
+  MenuItem,
 } from "@material-ui/core";
 
+import { clearCart } from "../../state/cartSlice";
+
 import { logoutRequest, logoutRequestSuccess } from "../../state/userSlice";
-import { logout } from "../../state/actions/authActions";
-import { ShoppingCart } from "@material-ui/icons";
+import { ShoppingCart, MoreVert } from "@material-ui/icons";
 
 import { makeStyles } from "@material-ui/styles";
 
@@ -61,9 +65,20 @@ const TopNav = () => {
   const qty = useSelector((state) => state.cart.totalQuantity);
 
   const logout = () => {
+    dispatch(clearCart());
     dispatch(logoutRequest());
-    localStorage.removeItem("persist:root");
     dispatch(logoutRequestSuccess());
+    localStorage.removeItem("persist:root");
+  };
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const clickHandler = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const closeHandler = () => {
+    setAnchorEl(null);
   };
 
   return (
@@ -77,32 +92,44 @@ const TopNav = () => {
           variant="standard"
         />
         <div className={classes.auth}>
-          {isLogged ? (
-            <>
-              <Typography sx={{ marginRight: "30px", cursor: "pointer" }}>
-                <span onClick={logout}>Sair</span>
-              </Typography>
-              <Link to="/cart">
-                <Badge badgeContent={qty} color="primary">
-                  <ShoppingCart />
-                </Badge>
-              </Link>
-            </>
-          ) : (
-            <div className={classes.auth}>
-              <Typography sx={{ marginRight: "30px" }}>
-                <Link to="/signup">Cadastrar</Link>
-              </Typography>
-              <Typography sx={{ marginRight: "30px" }}>
-                <Link to="/login">Entrar</Link>
-              </Typography>
-              <Link to="/cart">
-                <Badge badgeContent={qty} color="primary">
-                  <ShoppingCart />
-                </Badge>
-              </Link>
-            </div>
-          )}
+          <Link to="/cart">
+            <Badge badgeContent={qty} color="primary">
+              <ShoppingCart />
+            </Badge>
+          </Link>
+          <div>
+            <IconButton
+              aria-label="more"
+              id="long-button"
+              aria-controls="long-menu"
+              aria-expanded={open ? "true" : undefined}
+              aria-haspopup="true"
+              onClick={clickHandler}
+            >
+              <MoreVert />
+            </IconButton>
+            <Menu
+              id="long-menu"
+              MenuListProps={{
+                "aria-labelledby": "long-button",
+              }}
+              anchorEl={anchorEl}
+              open={open}
+              onClose={closeHandler}
+              PaperProps={{
+                style: {
+                  width: "20ch",
+                },
+              }}
+            >
+              <MenuItem onClick={closeHandler}>
+                {isLogged ? <span onClick={logout}>Sair</span> : <Link to="/login">Entrar</Link>}
+              </MenuItem>
+              <MenuItem onClick={closeHandler}>
+                <Link to="/signup">Criar conta</Link>
+              </MenuItem>
+            </Menu>
+          </div>
         </div>
       </Toolbar>
     </AppBar>

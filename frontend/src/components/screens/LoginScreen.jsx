@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
 
 import { clearMessage, loginRequestError } from "../../state/userSlice";
 
@@ -11,14 +11,7 @@ import { makeStyles } from "@material-ui/styles";
 import TopNav from "../navs/TopNav";
 import BottomNav from "../navs/BottomNav";
 
-import {
-  Card,
-  Typography,
-  TextField,
-  Button,
-  Alert,
-  CircularProgress,
-} from "@material-ui/core";
+import { Card, Typography, TextField, Button, Alert } from "@material-ui/core";
 
 import "../../assets/css/Auth.css";
 
@@ -45,10 +38,6 @@ const LoginScreen = () => {
 
   const submitFormHandler = (e) => {
     e.preventDefault();
-    if (!email || !password) {
-      dispatch(loginRequestError("Informe todos os campos!"));
-      return;
-    }
     login(dispatch, { email, password });
   };
 
@@ -101,9 +90,9 @@ const LoginScreen = () => {
               <Alert
                 sx={{ marginTop: "20px" }}
                 variant="filled"
-                severity="error"
+                severity={message.severity}
               >
-                {message}
+                {message.message}
               </Alert>
             )}
           </form>

@@ -27,7 +27,7 @@ const ProductSreen = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [product, setProduct] = useState([]);
   const [quantity, setQuantity] = useState(1);
-  console.log(product)
+
   useEffect(() => {
     const fetchProduct = async () => {
       setIsLoading(true);
@@ -43,9 +43,7 @@ const ProductSreen = () => {
   }, [id]);
 
   const addToCartHandler = () => {
-    dispatch(
-      addToCart(product)
-    );
+    dispatch(addToCart(product));
   };
 
   return (

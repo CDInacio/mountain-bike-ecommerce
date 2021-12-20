@@ -4,14 +4,16 @@ const cartSlice = createSlice({
   name: "cart",
   initialState: {
     products: [],
-    totalQuantity: 0,
+    // totalQuantity: 0,
+    changed: false,
   },
   reducers: {
     addToCart: (state, { payload }) => {
-      state.totalQuantity++;
+      state.changed = true
+      // state.totalQuantity++;
       const newProduct = payload;
       const existingProduct = state.products.find(
-        (product) => product.id === newProduct.id
+        (product) => product.id === newProduct._id
       );
       if (!existingProduct) {
         state.products.push({
@@ -28,8 +30,13 @@ const cartSlice = createSlice({
           existingProduct.totalPrice + newProduct.price;
       }
     },
+    clearCart: (state) => {
+      state.products = [];
+      state.totalQuantity = 0;
+      state.changed = false;
+    }
   },
 });
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;
