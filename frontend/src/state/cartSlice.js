@@ -6,14 +6,15 @@ const cartSlice = createSlice({
     products: [],
     // totalQuantity: 0,
     changed: false,
+    isLoading: false,
   },
   reducers: {
     addToCart: (state, { payload }) => {
-      state.changed = true
+      state.changed = true;
       // state.totalQuantity++;
       const newProduct = payload;
       const existingProduct = state.products.find(
-        (product) => product.id === newProduct._id
+        (product) => product.id === newProduct.id
       );
       if (!existingProduct) {
         state.products.push({
@@ -22,7 +23,7 @@ const cartSlice = createSlice({
           price: newProduct.price,
           quantity: 1,
           totalPrice: newProduct.price,
-          imageUrl: newProduct.imageUrl
+          imageUrl: newProduct.imageUrl,
         });
       } else {
         existingProduct.quantity++;
@@ -30,13 +31,30 @@ const cartSlice = createSlice({
           existingProduct.totalPrice + newProduct.price;
       }
     },
+    removeFromCart: (state, { payload }) => {
+      state.changed = true;
+      const itemId = payload.id;
+      const existingItem = state.products.find((item) => item.id === itemId);
+      if (existingItem.quantity === 1) {
+        state.products = state.products.filter((item) => item.id != itemId);
+      } else {
+        existingItem.quantity--;
+        existingItem.totalPrice = existingItem.totalPrice - existingItem.price;
+      }
+    },
+    updateCart: (state, { payload }) => {
+      state.products = payload;
+    },
     clearCart: (state) => {
       state.products = [];
-      state.totalQuantity = 0;
-      state.changed = false;
-    }
+      state.changed = true;
+    },
+    setLoading: (state, { payload }) => {
+      state.isLoading = payload;
+    },
   },
 });
 
-export const { addToCart, clearCart } = cartSlice.actions;
+export const { addToCart, clearCart, updateCart, removeFromCart, setLoading } =
+  cartSlice.actions;
 export default cartSlice.reducer;

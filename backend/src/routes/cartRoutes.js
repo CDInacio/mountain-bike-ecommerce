@@ -4,6 +4,7 @@ const { isAuth } = require("../middleware/auth");
 
 const Cart = require("../models/Cart");
 
+// fetch users cart
 router.get("/", isAuth, async (req, res) => {
   try {
     const userCart = await Cart.find({ userId: req.user.id });
@@ -17,10 +18,10 @@ router.get("/", isAuth, async (req, res) => {
   }
 });
 
+// add product to cart
 router.post("/add", isAuth, async (req, res) => {
   const userId = req.user.id;
   let products = req.body;
-  console.log(products)
   try {
     let existingCart = await Cart.findOne({ userId });
     if (existingCart) {

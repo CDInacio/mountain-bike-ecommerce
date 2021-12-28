@@ -12,7 +12,7 @@ const ProductModel = new Schema(
       type: String,
       required: true,
     },
-    detailType: {
+    usage: {
       type: String,
     },
     brand: {
@@ -44,7 +44,12 @@ const ProductModel = new Schema(
     discription: {
       type: String,
     },
-    imageUrl: { type: String },
+    imageUrl: { 
+      type: String 
+    },
+    tags: {
+      type: Array,
+    },
   },
   {
     timesStamps: true,

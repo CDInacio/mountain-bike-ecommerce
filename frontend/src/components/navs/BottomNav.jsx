@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { publicRequest } from "../../services/api";
 import { Link } from "react-router-dom";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 
@@ -33,6 +34,21 @@ const BottomNav = () => {
   const [selectAccessoriesColor, setSelectAccessoriesColor] = useState(false);
   const [selectBrandColor, setSelectBrandColor] = useState(false);
   const [selectCasualColor, setSelectCasualColor] = useState(false);
+
+  const [brands, setBrands] = useState([]);
+
+  useEffect(() => {
+    const fetchBrands = async () => {
+      try {
+        const { data } = await publicRequest.get("/products/brands");
+        setBrands(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchBrands();
+  }, []);
+
   const classes = useStyles();
 
   return (
@@ -60,6 +76,14 @@ const BottomNav = () => {
             <Link to="/products/category/Quadro">
               <p>Quadro</p>
             </Link>
+            <p>Relação</p>
+            <Link to="/products/category/Freio">
+              <p>Freio</p>
+            </Link>
+            <Link to="/products/category/Pedal">
+              <p>Pedal</p>
+            </Link>
+            <p>Roda</p>
           </div>
         </div>
         <div
@@ -77,10 +101,9 @@ const BottomNav = () => {
             <Link to="/products/department/equipamentos">Equipamentos</Link>
           </Typography>
           <div className="dropdown-content">
-            <p>Relação</p>
-            <p>Freio</p>
-            <p>Guidão</p>
-            <p>Roda</p>
+            <Link to="/products/category/Capacete">
+              <p>Capacete</p>
+            </Link>
           </div>
         </div>
         <div
@@ -98,7 +121,15 @@ const BottomNav = () => {
             <Link to="/products/department/acessorios">Acessórios</Link>
           </Typography>
           <div className="dropdown-content">
-            <p>Hello World!</p>
+            <Link to="/products/category/Ferramenta">
+              <p>Ferramenta</p>
+            </Link>
+            <Link to="/products/category/Kit-de-Reparo">
+              <p>Kit de Reparo</p>
+            </Link>
+            <Link to="/products/category/Bomba">
+              <p>Bomba</p>
+            </Link>
           </div>
         </div>
         <div
@@ -152,19 +183,14 @@ const BottomNav = () => {
             }}
             className={classes.item}
           >
-            Marcas
+            <Link to="/products/brands">Marcas</Link>
           </Typography>
           <div className="dropdown-content">
-            <Link to="/marca/fox"><p>Fox</p></Link>
-            <Link to="/marca/troy-lee"><p>Troy Lee Designs</p></Link>
-            <p>Rock Shox</p>
-            <p>Race Face</p>
-            <p>Sram</p>
-            <p>Shimano</p>
-            <p>Cannyon</p>
-            <p>Santa Cruz</p>
-            <p>Specialized</p>
-            <p>Marzzochi</p>
+            {brands.map((brand) => (
+              <Link to={`/products/brand/${brand}`}>
+                <p>{brand}</p>
+              </Link>
+            ))}
           </div>
         </div>
       </Toolbar>

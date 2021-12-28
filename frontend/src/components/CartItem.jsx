@@ -2,10 +2,31 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Grid, Typography } from "@material-ui/core";
 
+import { addToCart } from "../state/cartSlice";
+import { removeFromCart } from "../state/cartSlice";
+
 import "../assets/css/Cart.css";
 
 const CartItem = (props) => {
-  const { imageUrl, productName, quantity, price, totalPrice } = props;
+  const dispatch = useDispatch();
+  const { id, imageUrl, productName, quantity, price, totalPrice } = props;
+
+  const addToCartHandler = () => {
+    dispatch(
+      addToCart({
+        id: id,
+        productName: productName,
+        price: price,
+        quantity: quantity,
+        totalPrice: totalPrice,
+        imageUrl: imageUrl,
+      })
+    );
+  };
+
+  const removeFromCartHandler = () => {
+    dispatch(removeFromCart({ id: id }));
+  };
 
   return (
     <>
@@ -28,9 +49,12 @@ const CartItem = (props) => {
         </Typography>
       </Grid>
       <Grid sx={{ display: "flex" }} item xs={2}>
-        <span className="remove">-</span>
+        <span onClick={removeFromCartHandler} className="remove">-</span>
         <Typography>{quantity}</Typography>
-        <span className="add"> +</span>
+        <span onClick={addToCartHandler} className="add">
+          {" "}
+          +
+        </span>
       </Grid>
       <Grid item xs={2}>
         <Typography>{price}</Typography>

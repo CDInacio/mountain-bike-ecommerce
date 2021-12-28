@@ -31,3 +31,4 @@ export const register = async (dispatch, user) => {
     dispatch(singupRequestError(error.message));
   }
 };
+

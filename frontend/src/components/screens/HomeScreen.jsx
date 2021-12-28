@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { Grid, Container, Button } from "@material-ui/core";
 
-import Hero from "../hero/Hero";
+import Hero from "../Hero";
 import HomeNav from "../navs/HomeNav";
+import Footer from "../Footer";
 
 import "../../assets/css/Home.css";
 
@@ -23,7 +24,7 @@ const HomeScreen = () => {
                 }}
                 variant="contained"
               >
-                <Link to="/componentes">Ver mais</Link>
+                <Link to="/products/department/componentes">Ver mais</Link>
               </Button>
             </div>
           </Grid>
@@ -33,7 +34,7 @@ const HomeScreen = () => {
               <span>Equipamentos</span>
               <Button style={{
                   backgroundColor: "#24292F",
-                }} variant="contained"><Link to="/equipamentos">Ver mais</Link></Button>
+                }} variant="contained"><Link to="/products/department/equipamentos">Ver mais</Link></Button>
             </div>
           </Grid>
           <Grid className="accessories" item xs={4}>
@@ -65,6 +66,7 @@ const HomeScreen = () => {
           </Grid>
         </Grid>
       </Container>
+      <Footer />
     </>
   );
 };

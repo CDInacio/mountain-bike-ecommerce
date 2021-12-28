@@ -1,0 +1,19 @@
+.footer {
+    margin-top: 150px;
+    padding: 30px;
+    background-color: var(--dark2);
+    min-height: 100px;
+    color: #fff;
+}
+
+.socials {
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+    font-size: 2rem;
+  }
+  

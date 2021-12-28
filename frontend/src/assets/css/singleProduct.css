@@ -1,0 +1,17 @@
+.inStock {
+    background-color: var(--green);
+    color: var(--white);
+    padding: 3px 10px;
+}
+
+.outOfStock {
+    background-color: var(--red);
+    color: var(--white);
+    padding: 3px 10px;
+}
+
+.imageContainer img{
+    height: 95%;
+    width: 95%;
+    object-fit: contain;
+}

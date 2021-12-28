@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 
 import TopNav from "../navs/TopNav";
 import BottomNav from "../navs/BottomNav";
+import Footer from "../Footer";
 
 import { clearMessage, loginRequestError } from "../../state/userSlice";
 import { register } from "../../state/actions/authActions";
@@ -114,6 +115,7 @@ const RegisterScreen = () => {
           </form>
         </Card>
       </div>
+      <Footer />
     </>
   );
 };

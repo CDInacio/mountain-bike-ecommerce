@@ -1,0 +1,57 @@
+[
+    {
+        "department": "acessorios",
+        "category": "Ferramenta",
+        "brand": "Elleven",
+        "productName": "Kit Ferramentas Canivete multiuso para bike 8 funções",
+        "quantity": "4",
+        "price": 46,
+        "specification": ["8 Funções multifuncional", "Estrutura em aço", "Super portátil", "Material : aço"],
+        "discription": "Elleven é uma marca desenvolvida por uma das maiores empresas do segmento de bicicletas do sul do Brasil. A marca tem como meta oferecer uma linha de produtos com a melhor relação custo x benefício do mercado. Com uma linha variada composta por peças, acessórios e quadros, a Elleven é uma das melhores opções para quem busca qualidade garantida a um preço justo e competitivo.",
+        "imageUrl": "https://i.imgur.com/uVbXlwK.jpg"
+    },
+    {
+        "department": "acessorios",
+        "category": "Kit de Reparo",
+        "brand": "Elleven",
+        "productName": "Kit de Reparo camara de ar com 8 remendos",
+        "quantity": "4",
+        "price": 26,
+        "specification": ["Kit contém (8) remendos, (1) cola, (1) lixa, (2) espátulas de aço.", "Estojo portátil", "Estátulas especiais para uso em bicicletas", "Material : aço"],
+        "discription": "Elleven é uma marca desenvolvida por uma das maiores empresas do segmento de bicicletas do sul do Brasil. A marca tem como meta oferecer uma linha de produtos com a melhor relação custo x benefício do mercado. Com uma linha variada composta por peças, acessórios e quadros, a Elleven é uma das melhores opções para quem busca qualidade garantida a um preço justo e competitivo.",
+        "imageUrl": "https://i.imgur.com/hSEtyFx.jpg"
+    },
+    {
+        "department": "acessorios",
+        "category": "Kit de Reparo",
+        "brand": "Elleven",
+        "productName": "Fita Anti-furo (Par) MTB tipo Mr. Tuff Sttone's",
+        "quantity": "9",
+        "price": 37,
+        "specification": ["Não é tóxica e pode ser reaproveitada na troca dos pneus.", "Evita acidentes, perda de tempo com conserto e baixa os custos com manutenção, evitando troca de pneus e câmaras"],
+        "discription": "A fita anti-furo Sttone's possui um design que garante perfeito ajuste entre o pneu e a câmara, garantindo alta proteção com alto desempenho e conforto, com peso mínimo",
+        "imageUrl": "https://i.imgur.com/EllISfW.jpg"
+    },
+    {
+        "department": "acessorios",
+        "category": "Bomba",
+        "brand": "Elleven",
+        "productName": "Bomba Ar de Mão Mini Telescópica Plástico/Alumínio",
+        "quantity": "5",
+        "price": 90,
+        "specification": ["Ponteira reversível – Presta e Schrader", "Pressão máxima de 80 PSI", "Acompanha suporte para transporte no quadro", "Cabo telescópico – Maior volume de ar a cada bombeada", "Possui trava para evitar vazamento no inflar", "Medidas : 230 mm fechada", "Peso: 107g"],
+        "discription": "Elleven é uma marca desenvolvida por uma das maiores empresas do segmento de bicicletas do sul do Brasil. A marca tem como meta oferecer uma linha de produtos com a melhor relação custo x benefício do mercado. Com uma linha variada composta por peças, acessórios e quadros, a Elleven é uma das melhores opções para quem busca qualidade garantida a um preço justo e competitivo.",
+        "imageUrl": "https://i.imgur.com/WNqNxSb.jpg"
+    },
+    {
+        "department": "acessorios",
+        "category": "Bomba",
+        "brand": "Giyo",
+        "productName": "Bomba Ar Oficina com Manômetro 200 PSI GF-15SP",
+        "quantity": "7",
+        "price": 240,
+        "specification": ["Cabo tipo 'T'", "Manômetro para indicar a pressão", "Cabo emborrachado", "Alta pressão (até 200 PSI)", "Válvula inteligente Twin (compatível com válvulas Presta e Schrader)", "Base Antiderrapante"],
+        "discription": "Bombas para bicicleta, acessórios e componentes de excelente qualidade. Confira toda linha de produtos Giyo.",
+        "imageUrl": "https://i.imgur.com/7Safqe6.jpg"
+    }
+]

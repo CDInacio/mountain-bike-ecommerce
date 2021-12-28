@@ -6,7 +6,7 @@ import TopNav from "../navs/TopNav";
 import BottomNav from "../navs/BottomNav";
 import Banner from "../Banner";
 
-import {publicRequest} from "../../services/api";
+import { publicRequest } from "../../services/api";
 
 import "../../assets/css/Components.css";
 
@@ -48,10 +48,10 @@ const CetegoryScreen = () => {
   useEffect(() => {
     const fetchProductsByDepartment = async () => {
       try {
-        setIsLoading(true)
+        setIsLoading(true);
         const { data } = await publicRequest.get(`products?category=${name}`);
         setProducts(data);
-        setIsLoading(false)
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
       }

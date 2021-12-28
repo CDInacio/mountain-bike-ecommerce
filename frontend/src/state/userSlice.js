@@ -48,6 +48,7 @@ const userSlice = createSlice({
     },
     clearMessage: (state) => {
       state.message = null;
+      state.isLoading = false;
     },
   },
 });

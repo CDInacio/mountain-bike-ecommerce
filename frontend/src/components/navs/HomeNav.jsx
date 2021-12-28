@@ -1,17 +1,24 @@
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
 
 import {
   AppBar,
   Toolbar,
   Typography,
+  Badge,
+  IconButton,
+  Menu,
+  MenuItem,
 } from "@material-ui/core";
 
-// import { isLoggedIn } from "../../store/actions/authActions";
+import "./bottomNav.css";
+
+import { clearCart } from "../../state/cartSlice";
+import { logoutRequest, logoutRequestSuccess } from "../../state/userSlice";
 
 import { Link } from "react-router-dom";
 
-import { ShoppingCart  } from "@material-ui/icons";
+import { ShoppingCart, MoreVert } from "@material-ui/icons";
 
 import { makeStyles } from "@material-ui/styles";
 
@@ -47,20 +54,22 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   appBar: {
-    transition: "500ms ease"
+    transition: "500ms ease",
   },
   icons: {
-    display: "flex"
-  }
+    display: "flex",
+  },
 }));
 
 const HomeNav = () => {
-  const history = useHistory();
+  const dispatch = useDispatch();
+  const isLogged = useSelector((state) => state.user.isLoggedIn);
+  const cart = useSelector((state) => state.cart);
   const [nav, setNav] = useState(true);
   // const isAuth = isLoggedIn();
 
   const changeAppBarCollorOnScrollHandler = () => {
-    if (window.pageYOffset < 300) {
+    if (window.pageYOffset < 190) {
       setNav(true);
     } else {
       setNav(false);
@@ -69,22 +78,45 @@ const HomeNav = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", changeAppBarCollorOnScrollHandler);
-    return () => window.removeEventListener("scrool", changeAppBarCollorOnScrollHandler);
-  }, [])
+    return () =>
+      window.removeEventListener("scrool", changeAppBarCollorOnScrollHandler);
+  }, []);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const clickHandler = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const closeHandler = () => {
+    setAnchorEl(null);
+  };
+
+  const logout = () => {
+    dispatch(clearCart());
+    dispatch(logoutRequest());
+    dispatch(logoutRequestSuccess());
+    localStorage.removeItem("persist:root");
+  };
 
   const classes = useStyles();
   return (
     <>
       <AppBar
-        style={{ backgroundColor: nav ? "transparent"  : "white" , boxShadow: "none" }}
+        style={{
+          backgroundColor: nav ? "transparent" : "white",
+          boxShadow: "none",
+        }}
         className={classes.appBar}
         elevation={0}
       >
-        <Toolbar sx={{color: nav ? "white" : "black"}} className={classes.toolBar} variant="dense">
+        <Toolbar
+          sx={{ color: nav ? "white" : "black" }}
+          className={classes.toolBar}
+          variant="dense"
+        >
           <div className={classes.items}>
-            <Typography sx={{ marginRight: "50px" }} variant="h5">
-              Marca
-            </Typography>
+            <Typography sx={{marginRight: "30px"}} variant="h6"><div className="logo"><Link to="/">Hard Line</Link></div></Typography>
             <Typography
               className={classes.item}
               sx={{ marginRight: "10px", padding: "10px" }}
@@ -122,42 +154,51 @@ const HomeNav = () => {
               Marcas
             </Typography>
           </div>
-          {/* <div className={classes.auth}>
-            {isAuth ? (
-              <div className={classes.icons}>
-                <Typography
-                onClick={logout}
-                sx={{ marginRight: "30px", cursor: "pointer" }}
+          <div className={classes.auth}>
+            <Link to="/cart">
+              <Badge badgeContent={cart.products?.length} color="primary">
+                <ShoppingCart />
+              </Badge>
+            </Link>
+            <div>
+              <IconButton
+                aria-label="more"
+                id="long-button"
+                aria-controls="long-menu"
+                aria-expanded={open ? "true" : undefined}
+                aria-haspopup="true"
+                onClick={clickHandler}
               >
-                Sair
-                </Typography>
-                <ShoppingCart />
-              </div>
-            ) : (
-              <div className={classes.auth}>
-                <Typography
-                  className={classes.enter}
-                  sx={{
-                    marginRight: "30px",
-                    border: nav ? "1px solid white" : "1px solid black",
-                    padding: "5px 20px",
-                  }}
-                >
-                  <Link to="/cadastro">Cadastrar</Link>
-                </Typography>
-                <Typography
-                  sx={{
-                    marginRight: "30px",
-                    border: nav ? "1px solid white" : "1px solid black",
-                    padding: "5px 20px",
-                  }}
-                >
-                  <Link to="/login">Entrar</Link>
-                </Typography>
-                <ShoppingCart />
-              </div>
-            )}
-          </div> */}
+                <MoreVert
+                />
+              </IconButton>
+              <Menu
+                id="long-menu"
+                MenuListProps={{
+                  "aria-labelledby": "long-button",
+                }}
+                anchorEl={anchorEl}
+                open={open}
+                onClose={closeHandler}
+                PaperProps={{
+                  style: {
+                    width: "20ch",
+                  },
+                }}
+              >
+                <MenuItem onClick={closeHandler}>
+                  {isLogged ? (
+                    <span onClick={logout}>Sair</span>
+                  ) : (
+                    <Link to="/login">Entrar</Link>
+                  )}
+                </MenuItem>
+                <MenuItem onClick={closeHandler}>
+                  <Link to="/signup">Criar conta</Link>
+                </MenuItem>
+              </Menu>
+            </div>
+          </div>
         </Toolbar>
       </AppBar>
     </>

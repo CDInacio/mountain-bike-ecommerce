@@ -1,7 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
+
+import { publicRequest } from "../../services/api";
+
+import "./bottomNav.css";
 
 import {
   AppBar,
@@ -59,10 +63,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TopNav = () => {
+  const history = useHistory();
+  const [tag, setTag] = useState("");
   const dispatch = useDispatch();
   const isLogged = useSelector((state) => state.user.isLoggedIn);
   const classes = useStyles();
-  const qty = useSelector((state) => state.cart.totalQuantity);
+  const cart = useSelector((state) => state.cart);
 
   const logout = () => {
     dispatch(clearCart());
@@ -80,20 +86,32 @@ const TopNav = () => {
   const closeHandler = () => {
     setAnchorEl(null);
   };
+    
+  const searchHandler = (e) => {
+    e.preventDefault();
+    history.push(`/search/${tag}`);
+  };
 
   return (
     <AppBar className={classes.appBar} elevation={0} position="static">
       <Toolbar className={classes.toolBar} variant="dense">
-        <Typography variant="h6">MARCA</Typography>
-        <TextField
-          className={classes.search}
-          id="standard-basic"
-          label="Procurar..."
-          variant="standard"
-        />
+        <Typography variant="h6">
+          <div className="logo">
+            <Link to="/">Hard Line</Link>
+          </div>
+        </Typography>
+        <form className={classes.search} onSubmit={searchHandler}>
+          <TextField
+            sx={{ width: "100%" }}
+            id="standard-basic"
+            label="Procurar..."
+            onChange={(e) => setTag(e.target.value)}
+            variant="standard"
+          />
+        </form>
         <div className={classes.auth}>
           <Link to="/cart">
-            <Badge badgeContent={qty} color="primary">
+            <Badge badgeContent={cart.products?.length} color="primary">
               <ShoppingCart />
             </Badge>
           </Link>
@@ -106,7 +124,10 @@ const TopNav = () => {
               aria-haspopup="true"
               onClick={clickHandler}
             >
-              <MoreVert />
+              <MoreVert
+                color="#fafafa
+"
+              />
             </IconButton>
             <Menu
               id="long-menu"
@@ -123,7 +144,11 @@ const TopNav = () => {
               }}
             >
               <MenuItem onClick={closeHandler}>
-                {isLogged ? <span onClick={logout}>Sair</span> : <Link to="/login">Entrar</Link>}
+                {isLogged ? (
+                  <span onClick={logout}>Sair</span>
+                ) : (
+                  <Link to="/login">Entrar</Link>
+                )}
               </MenuItem>
               <MenuItem onClick={closeHandler}>
                 <Link to="/signup">Criar conta</Link>
