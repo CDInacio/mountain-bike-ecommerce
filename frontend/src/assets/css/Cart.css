@@ -1,6 +1,6 @@
 .cartImage img{
-    height: 200px;
-    width: 200px;
+    height: 120px;
+    width: 120px;
     object-fit: contain;
 }
 

@@ -6,19 +6,20 @@ import "../../assets/css/Brand.css";
 
 import { Card, Container, Grid, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
+
 const BrandsScreen = () => {
   return (
     <>
       <TopNav />
       <BottomNav />
       <Container>
-          <Typography>Nossas principais marcas</Typography>
+          <Typography variant="h5" sx={{marginTop: "25px", fontStyle: "italic"}}>Nossas principais marcas</Typography>
         <Grid container>
           <Grid item xs={12}>
             <Link to="/products/brand/Fox">
               <Card
                 className="brandImage"
-                sx={{ marginTop: "50px", position: "relative" }}
+                sx={{ marginTop: "15px", position: "relative" }}
               >
                 <Typography
                   className="brand"
@@ -34,7 +35,7 @@ const BrandsScreen = () => {
                 >
                   Fox
                 </Typography>
-                <img src="https://i.imgur.com/3dtRk2S.jpg" />
+                <img src="https://i.imgur.com/3dtRk2S.jpg" alt="fox" />
               </Card>
             </Link>
             <Link to="/products/brand/Rock Shox">
@@ -56,7 +57,7 @@ const BrandsScreen = () => {
                 >
                   Rock Shox
                 </Typography>
-                <img src="https://i.imgur.com/PSweuNK.jpg" />
+                <img src="https://i.imgur.com/PSweuNK.jpg" alt="rock shox" />
               </Card>
             </Link>
             <Link to="/products/brand/Shimano">
@@ -78,7 +79,7 @@ const BrandsScreen = () => {
                 >
                   Shimano
                 </Typography>
-                <img src="https://i.imgur.com/ovBILo1.jpg" />
+                <img src="https://i.imgur.com/ovBILo1.jpg" alt="shimano" />
               </Card>
             </Link>
             <Link to="/products/brand/Santa Cruz">
@@ -100,7 +101,7 @@ const BrandsScreen = () => {
                 >
                   Santa Cruz
                 </Typography>
-                <img src="https://i.imgur.com/7DCQOuv.jpg" />
+                <img src="https://i.imgur.com/7DCQOuv.jpg" alt="santa cruz" />
               </Card>
             </Link>
             <Link to="/products/brand/Race Face">
@@ -122,7 +123,7 @@ const BrandsScreen = () => {
                 >
                   Race Face
                 </Typography>
-                <img src="https://i.imgur.com/0GK7E6Y.jpg" />
+                <img src="https://i.imgur.com/0GK7E6Y.jpg" alt="race face" />
               </Card>
             </Link>
           </Grid>

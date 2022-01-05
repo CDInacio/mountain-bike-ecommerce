@@ -3,7 +3,7 @@ const router = express.Router();
 const key = process.env.STRIPE_KEY;
 const stripe = require("stripe")(key);
 
-// stripe payment logic
+// stripe payment
 router.post("/payment", (req, res) => {
   stripe.charges.create(
     {

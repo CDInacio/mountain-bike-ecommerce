@@ -43,7 +43,7 @@ const HomeScreen = () => {
               <span>Acessórios</span>
               <Button style={{
                   backgroundColor: "#24292F",
-                }} variant="contained"><Link to="/equipamentos">Ver mais</Link></Button>
+                }} variant="contained"><Link to="/products/department/acessorios">Ver mais</Link></Button>
             </div>
           </Grid>
           <Grid className="bikes" item xs={4}>
@@ -52,7 +52,7 @@ const HomeScreen = () => {
               <span>Bicicletas</span>
               <Button style={{
                   backgroundColor: "#24292F",
-                }} variant="contained"><Link to="#">Ver mais</Link></Button>
+                }} variant="contained"><Link to="/products/department/bicicletas">Ver mais</Link></Button>
             </div>
           </Grid>
           <Grid className="casual" item xs={4}>

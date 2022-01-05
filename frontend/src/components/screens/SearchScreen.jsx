@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import TopNav from "../navs/TopNav";
@@ -16,7 +16,6 @@ import {
   Typography,
   Card,
   CircularProgress,
-  LinearProgress,
   Alert,
   AlertTitle,
 } from "@material-ui/core";
@@ -47,22 +46,23 @@ const SearchScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
   const classes = useStyles();
   
+  const search = async (query) => {
+    setIsLoading(true);
+    try {
+      const { data } = await publicRequest.get(`/products/search/${query}`);
+      setProducts(data);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
   useEffect(() => {
-    const search = async (query) => {
-      setIsLoading(true);
-      try {
-        const { data } = await publicRequest.get(`/products/search/${query}`);
-        setProducts(data);
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     search(query);
   }, [query]);
 
   return (
-    <>
+    <div className="page-container">
       <TopNav />
       <BottomNav />
       <Container className="container" maxWidth="xl">
@@ -81,7 +81,7 @@ const SearchScreen = () => {
                     <Card className={classes.card}>
                       <Link to={`/product/${product._id}`}>
                         <div className="image">
-                          <img src={product.imageUrl} />
+                          <img src={product.imageUrl} alt="product" />
                           <Typography className={classes.name}>
                             {product.productName.replaceAll("-", " ")}
                           </Typography>
@@ -104,7 +104,7 @@ const SearchScreen = () => {
         )}
       </Container>
       <Footer />
-    </>
+    </div>
   );
 };
 export default SearchScreen;

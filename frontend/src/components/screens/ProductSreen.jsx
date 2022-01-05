@@ -19,7 +19,6 @@ const ProductSreen = () => {
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [product, setProduct] = useState([]);
-  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -44,7 +43,7 @@ const ProductSreen = () => {
   };
 
   return (
-    <>
+    <div className="page-container">
       <TopNav />
       <BottomNav />
       {isLoading ? (
@@ -53,10 +52,8 @@ const ProductSreen = () => {
           sx={{ position: "absolute", top: "30%", left: "40%" }}
         />
       ) : (
-        <>
           <Grid
             sx={{
-              height: "500px",
               margin: "50px auto 0 auto",
             }}
             container
@@ -73,7 +70,7 @@ const ProductSreen = () => {
               xs={7}
             >
               <div id="imageContainer" className="imageContainer">
-                <img src={product.imageUrl} />
+                <img src={product.imageUrl} alt="product" />
               </div>
             </Grid>
             <Grid className="cart" item xs={5}>
@@ -128,9 +125,9 @@ const ProductSreen = () => {
               ))}
             </Grid>
           </Grid>
-        </>
       )}
-    </>
+      <Footer />
+    </div>
   );
 };
 

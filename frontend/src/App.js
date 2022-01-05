@@ -16,6 +16,8 @@ import LoginScreen from "./components/screens/LoginScreen";
 import SearchScreen from './components/screens/SearchScreen';
 import BrandsScreen from "./components/screens/BrandsScreen";
 
+let isInitial = true;
+
 export default function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -37,10 +39,16 @@ export default function App() {
         console.log(error);
       }
     };
+    if (isInitial) {
+      isInitial = false;
+      return;
+    }
     if (user.isLoggedIn) {
       fetchCartData();
     }
   }, []);
+
+  console.log(cart)
 
   useEffect(() => {
     const addProductToCart = async (products) => {

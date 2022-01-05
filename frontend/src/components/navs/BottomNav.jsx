@@ -163,7 +163,9 @@ const BottomNav = () => {
             }}
             className={classes.item}
           >
+            <Link to="/products/department/bicicletas">
             Bicicletas
+            </Link>
           </Typography>
           <div className="dropdown-content">
             <p>Downhill</p>
@@ -186,9 +188,9 @@ const BottomNav = () => {
             <Link to="/products/brands">Marcas</Link>
           </Typography>
           <div className="dropdown-content">
-            {brands.map((brand) => (
+            {brands.map((brand, i) => (
               <Link to={`/products/brand/${brand}`}>
-                <p>{brand}</p>
+                <p key={i}>{brand}</p>
               </Link>
             ))}
           </div>

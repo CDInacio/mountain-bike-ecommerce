@@ -2,25 +2,9 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 
-const { isAuthorized, isAdmin } = require("../middleware/auth");
-
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/User");
-
-// router.get("/createAdmin", async (req, res) => {
-//   try {
-//     const admin = new User({
-//       name: "Cláudio Dantas",
-//       email: "claudiodantas1996@gmail.com",
-//       password: process.env.ADMIN_PASSWORD,
-//       isAdmin: true,
-//     });
-//     const newUser = await admin.save();
-//   } catch (error) {
-//     res.json({ message: error.message });
-//   }
-// });
 
 // sign user up
 router.post("/register", async (req, res) => {

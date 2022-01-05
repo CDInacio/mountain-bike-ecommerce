@@ -159,33 +159,37 @@ const CartScreen = () => {
                 <Typography sx={{ fontWeight: "bold" }}>
                   Total: R$ {total}
                 </Typography>
-                <StripeCheckout
-                  locale="pt-BR"
-                  name="Hard Line"
-                  billingAddress
-                  shippingAddress
-                  description="Total da compra: 20 pila"
-                  amount={total * 100}
-                  token={onToken}
-                  stripeKey={stripePublishableKey}
-                >
-                  <Button
-                    sx={{ marginTop: "30px" }}
-                    fullWidth={true}
-                    variant="contained"
-                    disabled={user.isLoggedIn ? false : true}
+                {user.isLoggedIn && cart.products.length > 0 ? (
+                  <StripeCheckout
+                    locale="en"
+                    name="Hard Line"
+                    billingAddress
+                    shippingAddress
+                    amount={total * 100}
+                    token={onToken}
+                    stripeKey={stripePublishableKey}
                   >
-                    Realizar pagamento
-                  </Button>
-                </StripeCheckout>
+                    <Button
+                      sx={{ marginTop: "30px" }}
+                      fullWidth={true}
+                      variant="contained"
+                      disabled={user.isLoggedIn ? false : true}
+                    >
+                      Realizar pagamento
+                    </Button>
+                  </StripeCheckout>
+                ) : (
+                  <Typography
+                    sx={{
+                      textAlign: "center",
+                      marginTop: "15px",
+                      color: "red",
+                    }}
+                  >
+                    Não é possível prosseguir com a compra.
+                  </Typography>
+                )}
               </Paper>
-              {!user.isLoggedIn && (
-                <Typography
-                  sx={{ textAlign: "center", marginTop: "15px", color: "red" }}
-                >
-                  Você precisa estar logado para prosseguir com a compra.
-                </Typography>
-              )}
             </Grid>
           </Grid>
         )}

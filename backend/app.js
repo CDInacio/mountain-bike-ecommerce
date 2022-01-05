@@ -13,7 +13,6 @@ databaseConnection();
 
 app.use(cors());
 
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // routes

@@ -3,8 +3,6 @@ import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { publicRequest } from "../../services/api";
-
 import "./bottomNav.css";
 
 import {
@@ -18,7 +16,7 @@ import {
   MenuItem,
 } from "@material-ui/core";
 
-import { clearCart } from "../../state/cartSlice";
+import { clearCart, setChanged } from "../../state/cartSlice";
 
 import { logoutRequest, logoutRequestSuccess } from "../../state/userSlice";
 import { ShoppingCart, MoreVert } from "@material-ui/icons";
@@ -71,7 +69,7 @@ const TopNav = () => {
   const cart = useSelector((state) => state.cart);
 
   const logout = () => {
-    dispatch(clearCart());
+    // dispatch(clearCart());
     dispatch(logoutRequest());
     dispatch(logoutRequestSuccess());
     localStorage.removeItem("persist:root");
@@ -86,7 +84,7 @@ const TopNav = () => {
   const closeHandler = () => {
     setAnchorEl(null);
   };
-    
+
   const searchHandler = (e) => {
     e.preventDefault();
     history.push(`/search/${tag}`);

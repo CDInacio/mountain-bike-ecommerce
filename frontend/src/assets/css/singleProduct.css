@@ -11,7 +11,7 @@
 }
 
 .imageContainer img{
-    height: 95%;
-    width: 95%;
+    height: 80%;
+    width: 80%;
     object-fit: contain;
 }

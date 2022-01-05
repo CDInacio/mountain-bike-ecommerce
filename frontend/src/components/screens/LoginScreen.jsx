@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { clearMessage, loginRequestError } from "../../state/userSlice";
+import { clearMessage } from "../../state/userSlice";
 
 import { login } from "../../state/actions/authActions";
 
@@ -10,6 +9,7 @@ import { makeStyles } from "@material-ui/styles";
 
 import TopNav from "../navs/TopNav";
 import BottomNav from "../navs/BottomNav";
+import Footer from "../Footer";
 
 import { Card, Typography, TextField, Button, Alert } from "@material-ui/core";
 
@@ -46,7 +46,7 @@ const LoginScreen = () => {
   }, []);
 
   return (
-    <>
+    <div className="page-container">
       <TopNav />
       <BottomNav />
       <section className="auth">
@@ -98,7 +98,8 @@ const LoginScreen = () => {
           </form>
         </Card>
       </section>
-    </>
+      <Footer />
+    </div>
   );
 };
 

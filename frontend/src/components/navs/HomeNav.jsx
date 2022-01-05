@@ -116,7 +116,11 @@ const HomeNav = () => {
           variant="dense"
         >
           <div className={classes.items}>
-            <Typography sx={{marginRight: "30px"}} variant="h6"><div className="logo"><Link to="/">Hard Line</Link></div></Typography>
+            <Typography sx={{ marginRight: "30px" }} variant="h6">
+              <div className="logo">
+                <Link to="/">Hard Line</Link>
+              </div>
+            </Typography>
             <Typography
               className={classes.item}
               sx={{ marginRight: "10px", padding: "10px" }}
@@ -139,19 +143,19 @@ const HomeNav = () => {
               className={classes.item}
               sx={{ marginRight: "10px", padding: "10px" }}
             >
-              Casual
+              <Link to="/products/department/casual">Casual</Link>
             </Typography>
             <Typography
               className={classes.item}
               sx={{ marginRight: "10px", padding: "10px" }}
             >
-              Bicicletas
+              <Link to="/products/department/bicicletas">Bicicletas</Link>
             </Typography>
             <Typography
               className={classes.item}
               sx={{ marginRight: "10px", padding: "10px" }}
             >
-              Marcas
+              <Link to="/products/brands">Marcas</Link>
             </Typography>
           </div>
           <div className={classes.auth}>
@@ -169,8 +173,7 @@ const HomeNav = () => {
                 aria-haspopup="true"
                 onClick={clickHandler}
               >
-                <MoreVert
-                />
+                <MoreVert />
               </IconButton>
               <Menu
                 id="long-menu"

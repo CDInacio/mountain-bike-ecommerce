@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
 
 import TopNav from "../navs/TopNav";
 import BottomNav from "../navs/BottomNav";
 import Footer from "../Footer";
 
-import { clearMessage, loginRequestError } from "../../state/userSlice";
+import { clearMessage } from "../../state/userSlice";
 import { register } from "../../state/actions/authActions";
 
 import "../../assets/css/Auth.css";
@@ -16,7 +15,6 @@ import {
   TextField,
   Button,
   Alert,
-  AlertTitle,
   Card,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";

@@ -17,7 +17,6 @@ import {
   Typography,
   Card,
   CircularProgress,
-  LinearProgress,
   Alert,
   AlertTitle
 } from "@material-ui/core";
@@ -89,15 +88,10 @@ const ProductsScreen = () => {
   }
 
   return (
-    <>
+    <div className="page-container">
       <TopNav />
       <BottomNav />
       {bannerImg ? <Banner imageUrl={bannerImg} department={bannerName} /> : ""}
-      {!showBanner && (
-        <Typography>
-          {type} &gt; {name}
-        </Typography>
-      )}
       <Container className="container" maxWidth="xl">
         {isLoading ? (
           <CircularProgress
@@ -113,7 +107,7 @@ const ProductsScreen = () => {
                     <Card className={classes.card}>
                       <Link to={`/product/${product._id}`}>
                         <div className="image">
-                          <img src={product.imageUrl} />
+                          <img src={product.imageUrl} alt="product" />
                           <Typography className={classes.name}>
                             {product.productName.replaceAll("-", " ")}
                           </Typography>
@@ -137,7 +131,7 @@ const ProductsScreen = () => {
       </Container>
       <Footer />
 
-    </>
+    </div>
   );
 };
 export default ProductsScreen;
